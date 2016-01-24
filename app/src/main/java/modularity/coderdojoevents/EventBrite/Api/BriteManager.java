@@ -13,9 +13,8 @@ import retrofit.Retrofit;
  */
 public class BriteManager {
 
-    private static final int TIMEOUT = 3;
-
     public static final String PUBLIC_TOKEN = "BKIYA2K56NSZUDVG6LWR";
+    private static final int TIMEOUT = 3;
     private static final String ENDPOINT = "http://eventbriteapi.com/";
 
     private final BriteApi api;
@@ -26,6 +25,7 @@ public class BriteManager {
                 .client(buildClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
         this.api = retrofit.create(BriteApi.class);
     }
 
@@ -35,7 +35,7 @@ public class BriteManager {
         client.setReadTimeout(TIMEOUT, TimeUnit.SECONDS);
         client.setWriteTimeout(TIMEOUT, TimeUnit.SECONDS);
         HttpLoggingInterceptor logger = new HttpLoggingInterceptor();
-        logger.setLevel(HttpLoggingInterceptor.Level.BODY);
+        logger.setLevel(HttpLoggingInterceptor.Level.BASIC);
         client.interceptors().add(logger);
         return client;
     }

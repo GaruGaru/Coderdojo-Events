@@ -1,4 +1,4 @@
-package modularity.coderdojoevents;
+package modularity.coderdojoevents.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,9 +15,8 @@ import modularity.coderdojoevents.Adapters.EventsAdapter;
 import modularity.coderdojoevents.Custom.SpacesItemDecoration;
 import modularity.coderdojoevents.EventBrite.Android.AsyncBriteRequestArea;
 import modularity.coderdojoevents.EventBrite.Android.BriteListener;
-import modularity.coderdojoevents.EventBrite.Api.BriteManager;
 import modularity.coderdojoevents.EventBrite.Response.BriteEventByArea;
-import modularity.coderdojoevents.EventBrite.Response.EventList;
+import modularity.coderdojoevents.R;
 
 public class MainActivity extends AppCompatActivity implements BriteListener {
 
@@ -34,12 +33,14 @@ public class MainActivity extends AppCompatActivity implements BriteListener {
         setSupportActionBar(toolbar);
 
         setupListLayout();
+
+        this.executeRequest();
     }
 
 
     @OnClick(R.id.buttonRefresh)
     protected void executeRequest() {
-        new AsyncBriteRequestArea(this).execute("Coderdojo", "43.4674366", "11.15248447", "50km", "venue", "distance");
+        new AsyncBriteRequestArea(this).execute("Coderdojo", "43.4674366", "11.15248447", "50km", "venue,organizer", "date");
     }
 
     private void setupListLayout() {
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements BriteListener {
     }
 
     private void setEvents(BriteEventByArea events) {
-        EventsAdapter adapter = new EventsAdapter(Arrays.asList(events.getEvents()));
+        EventsAdapter adapter = new EventsAdapter(this, Arrays.asList(events.getEvents()));
         eventView.setAdapter(adapter);
     }
 

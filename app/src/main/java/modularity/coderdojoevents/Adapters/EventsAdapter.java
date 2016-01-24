@@ -1,5 +1,8 @@
 package modularity.coderdojoevents.Adapters;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,19 +10,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
-import butterknife.Bind;
+import modularity.coderdojoevents.Activities.ActivityEvent;
+import modularity.coderdojoevents.Custom.Picasso.BlurTransformation;
 import modularity.coderdojoevents.EventBrite.Response.Events;
-import modularity.coderdojoevents.EventBrite.Response.TopMatchEvents;
 import modularity.coderdojoevents.R;
+import modularity.coderdojoevents.Utils.DateUtils;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsViewHolder> {
+    private Context context;
 
     private List<Events> eventList;
 
-    public EventsAdapter(List<Events> eventList) {
+    public EventsAdapter(Context context, List<Events> eventList) {
         this.eventList = eventList;
+        this.context = context;
     }
 
     @Override
@@ -29,12 +37,46 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
 
     @Override
     public void onBindViewHolder(EventsViewHolder viewHolder, int i) {
-        Events event = eventList.get(i);
+        final Events event = eventList.get(i);
 
-        viewHolder.textViewEvent.setText(event.getName().getText());
-        viewHolder.textViewOrganizer.setText(event.getOrganizer().getName());
-        viewHolder.textViewLocation.setText(event.getVenue().getName());
-        viewHolder.textViewDate.setText(event.getStart().getLocal());
+        String eventName = event.getName().getText();
+
+        String organizerName = event.getOrganizer().getName();
+
+        String venueName = FormatHelper.formatVenue(event.getVenue());
+
+        String dateString = DateUtils.formatUtc(event.getStart().getLocal());
+
+
+        viewHolder.textViewEvent.setText(eventName);
+        viewHolder.textViewOrganizer.setText(organizerName);
+        viewHolder.textViewLocation.setText(venueName);
+        viewHolder.textViewDate.setText(dateString);
+
+
+        viewHolder.imageViewIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ActivityEvent.class);
+                intent.putExtra("event", event);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
+
+
+        if (!event.getLogo().getUrl().isEmpty()) {
+            Picasso.with(context)
+                    .load(event.getLogo().getUrl())
+                    .placeholder(R.mipmap.ic_launcher)
+                    .fit()
+                    .centerCrop()
+                    .transform(new BlurTransformation(context, 24))
+                    .into(viewHolder.imageViewIcon);
+        } else
+            viewHolder.imageViewIcon.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.ic_launcher));
+
+
 
     }
 
@@ -42,7 +84,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
     public EventsViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View itemView = LayoutInflater.
                 from(viewGroup.getContext()).
-                inflate(R.layout.card_event, viewGroup, false);
+                inflate(R.layout.card_event_blurred, viewGroup, false);
         return new EventsViewHolder(itemView);
     }
 
@@ -54,7 +96,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
 
         protected TextView textViewDate;
 
-        @Bind(R.id.textViewOrganizer)
         protected TextView textViewOrganizer;
 
         protected ImageView imageViewIcon;

@@ -1,6 +1,8 @@
 package modularity.coderdojoevents.EventBrite.Response;
 
-public class Pagination
+import java.io.Serializable;
+
+public class Pagination implements Serializable
 {
     private String page_size;
 

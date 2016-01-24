@@ -1,6 +1,8 @@
 package modularity.coderdojoevents.EventBrite.Response;
 
-public class Description
+import java.io.Serializable;
+
+public class Description implements Serializable
 {
     private String text;
 

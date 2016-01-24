@@ -1,6 +1,8 @@
 package modularity.coderdojoevents.EventBrite.Response;
 
-public class Events
+import java.io.Serializable;
+
+public class Events implements Serializable
 {
     private String online_event;
 

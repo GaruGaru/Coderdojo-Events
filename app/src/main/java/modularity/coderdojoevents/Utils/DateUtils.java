@@ -10,17 +10,14 @@ import java.util.Locale;
  */
 public class DateUtils {
 
+    private static final SimpleDateFormat defaultUtc = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", getLocale());
+    private static final SimpleDateFormat localUtc = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", getLocale());
+
     public static Locale getLocale() {
         return Locale.getDefault();
     }
 
-    private static final SimpleDateFormat defaultUtc = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", getLocale());
-
-    private static final SimpleDateFormat localUtc = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", getLocale());
-
-
     public static Date utcToDate(String utc) {
-
         try {
             utc = utc.replace("T", " ");
             return defaultUtc.parse(utc);

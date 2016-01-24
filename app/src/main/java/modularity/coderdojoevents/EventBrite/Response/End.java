@@ -1,6 +1,8 @@
 package modularity.coderdojoevents.EventBrite.Response;
 
-public class End
+import java.io.Serializable;
+
+public class End implements Serializable
 {
     private String timezone;
 

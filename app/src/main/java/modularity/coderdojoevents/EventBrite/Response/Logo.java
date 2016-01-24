@@ -1,6 +1,8 @@
 package modularity.coderdojoevents.EventBrite.Response;
 
-public class Logo
+import java.io.Serializable;
+
+public class Logo implements Serializable
 {
     private String id;
 

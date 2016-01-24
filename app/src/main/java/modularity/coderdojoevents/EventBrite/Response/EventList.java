@@ -1,9 +1,11 @@
 package modularity.coderdojoevents.EventBrite.Response;
 
+import java.io.Serializable;
+
 /**
  * Created by Garu on 13/01/2016.
  */
-public class EventList
+public class EventList implements Serializable
 {
     private Location location;
 

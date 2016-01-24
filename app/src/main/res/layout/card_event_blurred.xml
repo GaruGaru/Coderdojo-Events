@@ -5,45 +5,64 @@
     android:layout_height="match_parent"
     android:padding="10dp"
     card:cardCornerRadius="2dp"
-    card:cardElevation="2dp">
+    card:cardElevation="3dp">
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <ImageView
-            android:id="@+id/eventIcon"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/ic_launcher" />
-
-        <LinearLayout
-            android:id="@+id/eventInfoView"
+        <RelativeLayout
+            android:id="@+id/headerView"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_toEndOf="@id/eventIcon"
-            android:orientation="vertical"
+            android:layout_height="72dp">
 
-            >
+
+            <ImageView
+                android:id="@+id/eventIcon"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_launcher" />
+
 
             <TextView
                 android:id="@+id/textViewEvent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="CoderDojo - Name"
+                android:layout_marginTop="5dp"
+                android:maxLines="2"
+                android:shadowColor="#000000"
+                android:shadowDx="1.5"
+                android:shadowDy="1.3"
+                android:shadowRadius="1.6"
+                android:text="CoderDojo - Name Very place holder naw Very place holder naw Very place holder naw"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold" />
+
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/divider"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/headerView"
+            android:background="@color/colorPrimary" />
+
+        <LinearLayout
+            android:id="@+id/eventInfoView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/divider"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textViewOrganizer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:text="#Organizer"
                 android:textSize="18sp" />
 
@@ -64,5 +83,6 @@
 
         </LinearLayout>
     </RelativeLayout>
+
 
 </android.support.v7.widget.CardView>

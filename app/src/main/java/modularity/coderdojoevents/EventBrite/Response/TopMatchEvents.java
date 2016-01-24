@@ -1,6 +1,8 @@
 package modularity.coderdojoevents.EventBrite.Response;
 
-public class TopMatchEvents
+import java.io.Serializable;
+
+public class TopMatchEvents implements Serializable
 {
 
     private Venue venue;

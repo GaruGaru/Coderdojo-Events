@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Activities.ActivityEvent"
+    tools:showIn="@layout/activity_event">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        card:cardCornerRadius="2dp"
+        card:cardElevation="3dp">
+
+        <TextView
+            android:id="@+id/textViewEventTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Coderdojo - dojo"
+            android:textAlignment="center"
+            android:textSize="21sp"
+            android:textStyle="bold" />
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:padding="10dp"
+        card:cardCornerRadius="2dp"
+        card:cardElevation="3dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewEventVenue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Dojo - Via dojo 42"
+                android:textAlignment="center"
+                android:textSize="21sp"
+                android:textStyle="bold" />
+
+            <fragment
+                android:id="@+id/mapView"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp" />
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>

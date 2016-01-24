@@ -1,6 +1,8 @@
 package modularity.coderdojoevents.EventBrite.Response;
 
-public class Location
+import java.io.Serializable;
+
+public class Location implements Serializable
 {
     private String longitude;
 

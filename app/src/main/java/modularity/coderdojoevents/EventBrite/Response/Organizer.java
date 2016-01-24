@@ -1,6 +1,8 @@
 package modularity.coderdojoevents.EventBrite.Response;
 
-public class Organizer
+import java.io.Serializable;
+
+public class Organizer implements Serializable
 {
     private String id;
 
