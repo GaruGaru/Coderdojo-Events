@@ -14,11 +14,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import modularity.coderdojoevents.Activities.ActivityEvent;
+import modularity.coderdojoevents.Activities.ActivityEventTabbed;
 import modularity.coderdojoevents.Custom.Picasso.BlurTransformation;
 import modularity.coderdojoevents.EventBrite.Response.Events;
 import modularity.coderdojoevents.R;
-import modularity.coderdojoevents.Utils.DateUtils;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsViewHolder> {
     private Context context;
@@ -45,7 +44,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
 
         String venueName = FormatHelper.formatVenue(event.getVenue());
 
-        String dateString = DateUtils.formatUtc(event.getStart().getLocal());
+        String dateString = FormatHelper.formatDate(event.getStart(), event.getEnd());
 
 
         viewHolder.textViewEvent.setText(eventName);
@@ -57,7 +56,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
         viewHolder.imageViewIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ActivityEvent.class);
+                Intent intent = new Intent(context, ActivityEventTabbed.class);
                 intent.putExtra("event", event);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
@@ -75,7 +74,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
                     .into(viewHolder.imageViewIcon);
         } else
             viewHolder.imageViewIcon.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.ic_launcher));
-
 
 
     }

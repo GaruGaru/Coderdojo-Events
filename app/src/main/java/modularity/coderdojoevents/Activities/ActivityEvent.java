@@ -18,6 +18,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import modularity.coderdojoevents.Adapters.FormatHelper;
 import modularity.coderdojoevents.EventBrite.Response.Events;
 import modularity.coderdojoevents.R;
 
@@ -31,6 +32,9 @@ public class ActivityEvent extends AppCompatActivity implements OnMapReadyCallba
 
     @Bind(R.id.textViewEventVenue)
     protected TextView textViewEventVenue;
+
+    @Bind(R.id.textViewEventDate)
+    protected TextView textViewEventDate;
 
     private GoogleMap map;
     private SupportMapFragment mapView;
@@ -54,6 +58,7 @@ public class ActivityEvent extends AppCompatActivity implements OnMapReadyCallba
     public void setupLayout(Events event) {
         textViewTitle.setText(event.getName().getText());
         textViewEventVenue.setText(event.getVenue().getAddress().getCity() + " - " + event.getVenue().getAddress().getAddress_1());
+        textViewEventDate.setText(FormatHelper.formatDate(event.getStart(), event.getEnd()));
     }
 
 
@@ -74,12 +79,13 @@ public class ActivityEvent extends AppCompatActivity implements OnMapReadyCallba
 
 
         map.setMyLocationEnabled(permission);
-
+        map.getUiSettings().setAllGesturesEnabled(false);
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         //  MapsInitializer.initialize(this.getActivity());
 
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(pos, 15);
         map.animateCamera(cameraUpdate);
+
 
         map.addMarker(new MarkerOptions()
                         .position(pos)

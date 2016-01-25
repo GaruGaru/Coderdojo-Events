@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements BriteListener {
         setupListLayout();
 
         this.executeRequest();
+
     }
 
 
