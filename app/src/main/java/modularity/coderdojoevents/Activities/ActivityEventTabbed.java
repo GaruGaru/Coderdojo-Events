@@ -1,5 +1,6 @@
 package modularity.coderdojoevents.Activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -32,6 +33,9 @@ public class ActivityEventTabbed extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         pager = (ViewPager) findViewById(R.id.pager);
         adapter = new EventsTabAdapter(getSupportFragmentManager(), (Events) getIntent().getSerializableExtra("event"));
@@ -43,6 +47,8 @@ public class ActivityEventTabbed extends AppCompatActivity {
 
     private void setupTabs() {
         this.tabs.setIndicatorColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        this.tabs.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+        this.tabs.setTextColor(Color.WHITE);
     }
 }
 

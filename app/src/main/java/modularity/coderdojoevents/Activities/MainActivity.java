@@ -15,13 +15,16 @@ import modularity.coderdojoevents.Adapters.EventsAdapter;
 import modularity.coderdojoevents.Custom.SpacesItemDecoration;
 import modularity.coderdojoevents.EventBrite.Android.AsyncBriteRequestArea;
 import modularity.coderdojoevents.EventBrite.Android.BriteListener;
-import modularity.coderdojoevents.EventBrite.Response.BriteEventByArea;
+import modularity.coderdojoevents.EventBrite.Response.BriteEvent;
 import modularity.coderdojoevents.R;
+import modularity.coderdojoevents.Settings.DojoSettings;
 
 public class MainActivity extends AppCompatActivity implements BriteListener {
 
     @Bind(R.id.eventList)
     protected RecyclerView eventView;
+
+    private DojoSettings settingsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,16 +35,23 @@ public class MainActivity extends AppCompatActivity implements BriteListener {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        this.settingsManager = new DojoSettings(this);
+
         setupListLayout();
 
-        this.executeRequest();
+        this.executeRequest(false);
 
     }
 
+    protected void executeRequest(boolean forceUpdate) {
+        if (forceUpdate || settingsManager.getEvents() == null)
+            new AsyncBriteRequestArea(this).execute("Coderdojo", "43.4674366", "11.15248447", "50km", "venue,organizer", "date");
+        else onRequestDone(settingsManager.getEvents());
+    }
 
     @OnClick(R.id.buttonRefresh)
-    protected void executeRequest() {
-        new AsyncBriteRequestArea(this).execute("Coderdojo", "43.4674366", "11.15248447", "50km", "venue,organizer", "date");
+    protected void onRefresh() {
+        executeRequest(true);
     }
 
     private void setupListLayout() {
@@ -52,14 +62,15 @@ public class MainActivity extends AppCompatActivity implements BriteListener {
         eventView.setLayoutManager(llm);
     }
 
-    private void setEvents(BriteEventByArea events) {
+    private void setEvents(BriteEvent events) {
         EventsAdapter adapter = new EventsAdapter(this, Arrays.asList(events.getEvents()));
         eventView.setAdapter(adapter);
     }
 
     @Override
-    public void onRequestDone(BriteEventByArea eventList) {
+    public void onRequestDone(BriteEvent eventList) {
         setEvents(eventList);
+        settingsManager.setEvents(eventList);
     }
 
     @Override

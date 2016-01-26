@@ -15,6 +15,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -90,17 +91,14 @@ public class FragmentEventMap extends Fragment implements OnMapReadyCallback {
 
 
             map.setMyLocationEnabled(permission);
-            map.getUiSettings().setAllGesturesEnabled(false);
             map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-            //  MapsInitializer.initialize(this.getActivity());
-
+            map.getUiSettings().setMyLocationButtonEnabled(true);
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(pos, 15);
             map.animateCamera(cameraUpdate);
-
-
             map.addMarker(new MarkerOptions()
                             .position(pos)
                             .title("CoderDojo")
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_dojo_pin))
             );
         }
     }
@@ -117,12 +115,16 @@ public class FragmentEventMap extends Fragment implements OnMapReadyCallback {
     @Override
     public void onDestroyView() {
         if (map != null && !this.getActivity().isFinishing() && (getChildFragmentManager().findFragmentById(R.id.mapViewFull) != null)) {
+            map.clear();
             getChildFragmentManager().beginTransaction().remove(getChildFragmentManager().findFragmentById(R.id.mapViewFull)).commitAllowingStateLoss();
             map = null;
 
         }
-        if (mapView != null)
+        if (mapView != null) {
             mapView.onDestroyView();
+            mapView = null;
+        }
+
         super.onDestroyView();
     }
 

@@ -32,7 +32,14 @@
         </activity>
 
         <activity android:name=".Activities.ActivityEvent" />
-        <activity android:name=".Activities.ActivityEventTabbed" />
+
+        <activity android:name=".Activities.ActivityEventTabbed">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.MainActivity" />
+        </activity>
+
 
         <meta-data
             android:name="com.google.android.gms.version"

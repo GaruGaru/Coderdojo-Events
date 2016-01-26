@@ -2,7 +2,7 @@ package modularity.coderdojoevents.EventBrite.Response;
 
 import java.io.Serializable;
 
-public class BriteEventByArea implements Serializable
+public class BriteEvent implements Serializable
 {
     private Location location;
 

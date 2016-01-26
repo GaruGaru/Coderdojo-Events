@@ -67,7 +67,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
         if (!event.getLogo().getUrl().isEmpty()) {
             Picasso.with(context)
                     .load(event.getLogo().getUrl())
-                    .placeholder(R.mipmap.ic_launcher)
+                    .placeholder(R.drawable.ic_dojo_big)
                     .fit()
                     .centerCrop()
                     .transform(new BlurTransformation(context, 24))

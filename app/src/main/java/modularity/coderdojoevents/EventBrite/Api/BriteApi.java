@@ -1,6 +1,6 @@
 package modularity.coderdojoevents.EventBrite.Api;
 
-import modularity.coderdojoevents.EventBrite.Response.BriteEventByArea;
+import modularity.coderdojoevents.EventBrite.Response.BriteEvent;
 import modularity.coderdojoevents.EventBrite.Response.EventList;
 import modularity.coderdojoevents.EventBrite.Response.Venue;
 import retrofit.Call;
@@ -95,6 +95,16 @@ public interface BriteApi {
     );
 
     @GET("/v3/events/search/")
+    Call<BriteEvent> getEventsByCity(
+            @Query("q") String keyword,
+            @Query("venue.city") String city,
+            @Query("expand") String expands,
+            @Query("sort_by") String sortBy,
+            @Query("token") String authKey
+    );
+
+
+    @GET("/v3/events/search/")
     Call<EventList> getEventsByCity(
             @Query("q") String keyword,
             @Query("venue.city") String city,
@@ -103,7 +113,7 @@ public interface BriteApi {
     );
 
     @GET("/v3/events/search/")
-    Call<EventList> getEventsByCity(
+    Call<BriteEvent> getEventsByCity(
             @Query("q") String keyword,
             @Query("venue.city") String city,
             @Query("token") String authKey
@@ -145,7 +155,7 @@ public interface BriteApi {
 
 
     @GET("/v3/events/search/")
-    Call<BriteEventByArea> getEventsByArea(
+    Call<BriteEvent> getEventsByArea(
             @Query("q") String keyword,
             @Query("location.latitude") String latitude,
             @Query("location.longitude") String longitude,
