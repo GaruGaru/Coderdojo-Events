@@ -7,5 +7,6 @@ import modularity.coderdojoevents.EventBrite.Response.BriteEvent;
  */
 public interface BriteListener {
     void onRequestDone(BriteEvent eventList);
+
     void onRequestError(int errorCode);
 }

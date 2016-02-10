@@ -2,35 +2,29 @@ package modularity.coderdojoevents.EventBrite.Response;
 
 import java.io.Serializable;
 
-public class Description implements Serializable
-{
+public class Description implements Serializable {
     private String text;
 
     private String html;
 
-    public String getText ()
-    {
+    public String getText() {
         return text;
     }
 
-    public void setText (String text)
-    {
+    public void setText(String text) {
         this.text = text;
     }
 
-    public String getHtml ()
-    {
+    public String getHtml() {
         return html;
     }
 
-    public void setHtml (String html)
-    {
+    public void setHtml(String html) {
         this.html = html;
     }
 
     @Override
-    public String toString()
-    {
-        return "ClassPojo [text = "+text+", html = "+html+"]";
+    public String toString() {
+        return "ClassPojo [text = " + text + ", html = " + html + "]";
     }
 }

@@ -15,7 +15,12 @@ public class FormatHelper {
 
     public static String formatVenue(Venue venue) {
         String str = "";
-        str += venue.getAddress().getCity() + " - " + venue.getAddress().getAddress_1();
+
+        str += venue.getAddress().getCity();
+
+        if (venue.getAddress().getAddress_1() != null && !venue.getAddress().getAddress_1().equals("null"))
+            str += " - " + venue.getAddress().getAddress_1();
+
         str = StringUtils.shorten(str, 30);
         return str;
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
 public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
     public static final int DEFAULT_SPACE = 20;
     private int space;

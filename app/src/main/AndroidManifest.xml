@@ -34,19 +34,26 @@
         <activity android:name=".Activities.ActivityEvent" />
 
         <activity android:name=".Activities.ActivityEventTabbed">
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activities.MainActivity" />
         </activity>
+
+        <activity
+            android:name=".Activities.ActivityLocation"
+            android:label="@string/activity_location_label" />
 
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <!--  <meta-data
+              android:name="com.google.android.maps.v2.API_KEY"
+              android:value="AIzaSyDOu-mtbb94Nxdx_CLY0PbjzdwGa78g1rw" /> -->
+
         <meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
+            android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDOu-mtbb94Nxdx_CLY0PbjzdwGa78g1rw" />
 
     </application>

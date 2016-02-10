@@ -1,5 +1,6 @@
 package modularity.coderdojoevents.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -41,17 +42,35 @@ public class MainActivity extends AppCompatActivity implements BriteListener {
 
         this.executeRequest(false);
 
+        openGpsIfNeeded();
+
+    }
+
+    private void openGpsIfNeeded() {
+        if (settingsManager.getUserPosition() == null) {
+            Intent locationIntent = new Intent(this, ActivityLocation.class);
+            locationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(locationIntent);
+        }
     }
 
     protected void executeRequest(boolean forceUpdate) {
-        if (forceUpdate || settingsManager.getEvents() == null)
-            new AsyncBriteRequestArea(this).execute("Coderdojo", "43.4674366", "11.15248447", "50km", "venue,organizer", "date");
+        if (settingsManager.getUserPosition() != null && (forceUpdate || settingsManager.getEvents() == null))
+            new AsyncBriteRequestArea(this).execute("Coderdojo",
+                    String.valueOf(settingsManager.getUserPosition().latitude),
+                    String.valueOf(settingsManager.getUserPosition().longitude),
+                    "50km",
+                    "venue,organizer",
+                    "date"
+            );
         else onRequestDone(settingsManager.getEvents());
     }
 
     @OnClick(R.id.buttonRefresh)
     protected void onRefresh() {
-        executeRequest(true);
+        Intent locationIntent = new Intent(this, ActivityLocation.class);
+        locationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(locationIntent);
     }
 
     private void setupListLayout() {

@@ -2,47 +2,39 @@ package modularity.coderdojoevents.EventBrite.Response;
 
 import java.io.Serializable;
 
-public class Next_occurrence implements Serializable
-{
+public class Next_occurrence implements Serializable {
     private String timezone;
 
     private String utc;
 
     private String local;
 
-    public String getTimezone ()
-    {
+    public String getTimezone() {
         return timezone;
     }
 
-    public void setTimezone (String timezone)
-    {
+    public void setTimezone(String timezone) {
         this.timezone = timezone;
     }
 
-    public String getUtc ()
-    {
+    public String getUtc() {
         return utc;
     }
 
-    public void setUtc (String utc)
-    {
+    public void setUtc(String utc) {
         this.utc = utc;
     }
 
-    public String getLocal ()
-    {
+    public String getLocal() {
         return local;
     }
 
-    public void setLocal (String local)
-    {
+    public void setLocal(String local) {
         this.local = local;
     }
 
     @Override
-    public String toString()
-    {
-        return "ClassPojo [timezone = "+timezone+", utc = "+utc+", local = "+local+"]";
+    public String toString() {
+        return "ClassPojo [timezone = " + timezone + ", utc = " + utc + ", local = " + local + "]";
     }
 }
