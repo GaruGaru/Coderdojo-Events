@@ -10,5 +10,16 @@
     <string name="tab_title_event">Evento</string>
     <string name="tab_title_description">Descrizione</string>
     <string name="tab_title_map">Mappa</string>
+    <string name="message_welcome">Benvenuto in CoderDojo events, il miglior modo per mantenerti aggiornato sugli eventi CoderDojo vicino a te!\nPremi sul simbolo in basso per continuare</string>
+    <string name="title_gps_needed">Posizione utente</string>
+    <string name="message_gps_needed">Per poter trovare i coderdojo vicini a te l\'applicazione necessita di accedere alla tua posizione.\n</string>
+
+    <string name="message_gps_wait">Attesa fix GPS</string>
+    <string name="message_gps_auto_failed">Impossibile ottenere la posizione utente dal sensore Gps, inserire la posizione manualmente</string>
+    <string name="string_your_city">"La tua città è "</string>
+    <string name="string_remember_pos">\nRicorda che puoi cambiare la tua posizione in ogni momento tramite l\'apposito bottone!</string>
+    <string name="title_user_pos">Posizione utente</string>
+    <string name="string_dismiss">Annulla</string>
+
 
 </resources>

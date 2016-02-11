@@ -59,9 +59,21 @@ public class MainActivity extends AppCompatActivity implements BriteListener, Sw
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        openGpsIfNeeded();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        openGpsIfNeeded();
+    }
+
     private void openGpsIfNeeded() {
         if (settingsManager.getUserPosition() == null) {
-            Intent locationIntent = new Intent(this, ActivityLocation.class);
+            Intent locationIntent = new Intent(this, ActivityWelcome.class);
             locationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(locationIntent);
         }

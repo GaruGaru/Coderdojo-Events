@@ -7,8 +7,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.CameraUpdate;
@@ -37,6 +42,9 @@ public class ActivityLocation extends AppCompatActivity implements PositionListe
 
     private PlaceAutocompleteFragment autocompleteFragment;
 
+    private DojoSettings dojoSettings;
+    private MaterialDialog autoGpsDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +54,12 @@ public class ActivityLocation extends AppCompatActivity implements PositionListe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        this.dojoSettings = new DojoSettings(this);
         //initMap();
         setupMapView();
         setupAutocomplete();
 
+        showDialogIfNeeded();
 
     }
 
@@ -72,7 +82,7 @@ public class ActivityLocation extends AppCompatActivity implements PositionListe
 
     @OnClick(R.id.gpsButton)
     protected void requestGps() {
-        new TimedPositionRequester(this, 5000).requestPosition(getBaseContext());
+        new TimedPositionRequester(this, 10000).requestPosition(getBaseContext());
         Toast.makeText(this, R.string.message_waiting_gps, Toast.LENGTH_SHORT).show();
     }
 
@@ -83,12 +93,7 @@ public class ActivityLocation extends AppCompatActivity implements PositionListe
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
-                LatLng latLng = GeoUtils.getLatLng(getBaseContext(), place.getName());
-                currentLatLng = latLng;
-                if (latLng == null)
-                    Toast.makeText(getBaseContext(), R.string.message_location_decode_error, Toast.LENGTH_LONG).show();
-                else focusMap(latLng);
-                Log.i("DOJO", "Place: " + place.getName());
+                ActivityLocation.this.onPlaceSelected(place);
             }
 
             @Override
@@ -99,6 +104,32 @@ public class ActivityLocation extends AppCompatActivity implements PositionListe
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(this, data);
+                onPlaceSelected(place);
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                // Error
+            } else if (resultCode == RESULT_CANCELED) {
+                // Dismiss
+            }
+        }
+    }
+
+    private void onPlaceSelected(Place place) {
+        LatLng latLng = GeoUtils.getLatLng(getBaseContext(), place.getName());
+        currentLatLng = latLng;
+        if (latLng == null)
+            Toast.makeText(getBaseContext(), R.string.message_location_decode_error, Toast.LENGTH_LONG).show();
+        else {
+            focusMap(latLng);
+            showDialogConfirm();
+        }
+    }
+
     @OnClick(R.id.buttonConfirm)
     protected void confirm() {
         if (currentLatLng != null) {
@@ -106,26 +137,107 @@ public class ActivityLocation extends AppCompatActivity implements PositionListe
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-        } else Toast.makeText(this, R.string.message_invalid_location, Toast.LENGTH_LONG).show();
+        } else showErrorDialog();
     }
 
+    private void showErrorDialog() {
+        new MaterialDialog.Builder(this)
+                .title(R.string.title_user_pos)
+                .content("Prima di procedere è necessaria una posizione valida")
+                .positiveText("Ok")
+                .show();
+    }
 
     @Override
     public void onPositionFixed(LatLng position) {
+
+        if (autoGpsDialog != null)
+            autoGpsDialog.dismiss();
+
         if (position != null) {
             currentLatLng = new LatLng(position.latitude, position.longitude);
             ((PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment))
                     .setText(GeoUtils.getCityByLatLng(this, position));
             focusMap(position);
-        } else
-            Toast.makeText(this, R.string.message_gps_error, Toast.LENGTH_LONG).show();
+            showDialogConfirm();
+        } else {
+            if (autoGpsDialog != null) handleAutoGpsFailture();
+            else Toast.makeText(this, R.string.message_gps_error, Toast.LENGTH_LONG).show();
+        }
     }
 
+    private void showDialogConfirm() {
+        new MaterialDialog.Builder(this)
+                .title(R.string.title_user_pos)
+                .content(getString(R.string.string_your_city) + GeoUtils.getCityByLatLng(this, currentLatLng) + getString(R.string.string_remember_pos))
+                .positiveText("Ok")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog dialog, DialogAction which) {
+                        confirm();
+                    }
+                })
+                .negativeText(R.string.string_dismiss)
+                .show();
+    }
+
+    private void handleAutoGpsFailture() {
+
+        new MaterialDialog.Builder(this)
+                .title(R.string.title_gps_needed)
+                .content(R.string.message_gps_auto_failed)
+                .positiveText("Ok")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog dialog, DialogAction which) {
+                        showAutocompleteLocation();
+                    }
+                })
+                .show();
+    }
+
+    private void showAutocompleteLocation() {
+        try {
+            Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
+                    .build(this);
+            startActivityForResult(intent, 1);
+
+
+        } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+            Toast.makeText(this, "Google play service not available!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void showDialogIfNeeded() {
+        if (dojoSettings.getUserPosition() == null) {
+            new MaterialDialog.Builder(this)
+                    .title(R.string.title_gps_needed)
+                    .content(R.string.message_gps_needed)
+                    .positiveText("Ok")
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(MaterialDialog dialog, DialogAction which) {
+                            gpsAutoSearch();
+                        }
+                    })
+                    .show();
+        }
+    }
+
+    private void gpsAutoSearch() {
+        requestGps();
+        autoGpsDialog = new MaterialDialog.Builder(this)
+                .title("Gps")
+                .content(R.string.message_gps_wait)
+                .progress(true, 0)
+                .show();
+
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        initMap(googleMap, new DojoSettings(this).getUserPosition());
-        LatLng userPosition = new DojoSettings(this).getUserPosition();
+        initMap(googleMap, dojoSettings.getUserPosition());
+        LatLng userPosition = dojoSettings.getUserPosition();
         if (userPosition != null) {
             googleMap.getUiSettings().setAllGesturesEnabled(false);
             focusMap(userPosition);

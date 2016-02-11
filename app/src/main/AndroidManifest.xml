@@ -39,6 +39,8 @@
                 android:value=".Activities.MainActivity" />
         </activity>
 
+        <activity android:name=".Activities.ActivityWelcome" />
+
         <activity
             android:name=".Activities.ActivityLocation"
             android:label="@string/activity_location_label" />
