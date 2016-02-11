@@ -1,84 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:layout_height="match_parent">
 
-    <android.support.v7.widget.CardView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        card:cardCornerRadius="2dp"
-        card:cardElevation="3dp">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textViewEventTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="Coderdojo - dojo"
-            android:textAlignment="center"
-            android:textSize="21sp"
-            android:textStyle="bold" />
-    </android.support.v7.widget.CardView>
-
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:padding="10dp"
-        card:cardCornerRadius="2dp"
-        card:cardElevation="3dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingTop="@dimen/activity_vertical_margin">
 
-            <TextView
-                android:id="@+id/textViewEventVenue"
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="Dojo - Via dojo 42"
-                android:textAlignment="center"
-                android:textSize="21sp"
-                android:textStyle="bold" />
+                android:padding="10dp"
+                card:cardCornerRadius="2dp"
+                card:cardElevation="3dp">
 
-            <fragment
-                android:id="@+id/mapView"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
-                android:layout_width="fill_parent"
-                android:layout_height="100dp" />
+                <TextView
+                    android:id="@+id/textViewEventTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="Coderdojo - dojo"
+                    android:textAlignment="center"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:padding="10dp"
+                card:cardCornerRadius="2dp"
+                card:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewEventVenue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="Dojo - Via dojo 42"
+                        android:textAlignment="center"
+                        android:textSize="21sp"
+                        android:textStyle="bold" />
+
+                    <fragment
+                        android:id="@+id/mapView"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="fill_parent"
+                        android:layout_height="100dp" />
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:padding="10dp"
+                card:cardCornerRadius="2dp"
+                card:cardElevation="3dp">
+
+                <TextView
+                    android:id="@+id/textViewEventDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="Giorno N Mese"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:padding="10dp"
+                card:cardCornerRadius="2dp"
+                card:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_road" />
+
+                        <TextView
+                            android:id="@+id/textViewDistance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="50 Km"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/imageViewCar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_car" />
+
+                        <TextView
+                            android:id="@+id/textViewTimeCar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:text="1h"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageViewWalk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_walk" />
+
+                        <TextView
+                            android:id="@+id/textViewTimeFoot"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:text="2h"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
 
         </LinearLayout>
 
+    </ScrollView>
 
-    </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/ticketButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_margin="16dp"
-        android:padding="10dp"
-        card:cardCornerRadius="2dp"
-        card:cardElevation="3dp">
+        android:src="@drawable/ic_ticket" />
 
-        <TextView
-            android:id="@+id/textViewEventDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="Giorno N Mese"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-
-    </android.support.v7.widget.CardView>
-
-</LinearLayout>
+</RelativeLayout>

@@ -2,4 +2,13 @@
     <string name="app_name">Coderdojo Events</string>
     <string name="action_settings">Settings</string>
     <string name="activity_location_label">User home</string>
+    <string name="message_gps_error">Gps fix error, try again or select location manually</string>
+    <string name="message_invalid_location">Invalid location!</string>
+    <string name="message_location_decode_error">Error during location decode</string>
+    <string name="message_location_notfound">Location not found</string>
+    <string name="message_waiting_gps">Waiting for gps fix...</string>
+    <string name="tab_title_event">Evento</string>
+    <string name="tab_title_description">Descrizione</string>
+    <string name="tab_title_map">Mappa</string>
+
 </resources>

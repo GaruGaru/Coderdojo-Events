@@ -23,11 +23,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_toEndOf="@id/eventIcon"
             android:orientation="vertical"
-
             >
 
             <TextView
@@ -35,17 +33,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_margin="5dp"
                 android:text="CoderDojo - Name"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textViewOrganizer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="#Organizer"
-                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/textViewLocation"
@@ -61,6 +53,13 @@
                 android:text="#When"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/textViewOrganizer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#Organizer"
+                android:textColor="@color/colorPrimary"
+                android:textSize="10sp" />
 
         </LinearLayout>
     </RelativeLayout>

@@ -38,7 +38,8 @@ public class ActivityEventTabbed extends AppCompatActivity {
 
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         pager = (ViewPager) findViewById(R.id.pager);
-        adapter = new EventsTabAdapter(getSupportFragmentManager(), (Events) getIntent().getSerializableExtra("event"));
+        tabs.setShouldExpand(true);
+        adapter = new EventsTabAdapter(this, getSupportFragmentManager(), (Events) getIntent().getSerializableExtra("event"));
         pager.setAdapter(adapter);
         tabs.setViewPager(pager);
         this.setupTabs();
@@ -46,8 +47,8 @@ public class ActivityEventTabbed extends AppCompatActivity {
     }
 
     private void setupTabs() {
-        this.tabs.setIndicatorColor(ContextCompat.getColor(this, R.color.colorPrimary));
-        this.tabs.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+        this.tabs.setIndicatorColor(ContextCompat.getColor(this, R.color.white));
+        this.tabs.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
         this.tabs.setTextColor(Color.WHITE);
     }
 }

@@ -73,7 +73,7 @@ public class ActivityLocation extends AppCompatActivity implements PositionListe
     @OnClick(R.id.gpsButton)
     protected void requestGps() {
         new TimedPositionRequester(this, 5000).requestPosition(getBaseContext());
-        Toast.makeText(this, "Waiting for gps fix...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.message_waiting_gps, Toast.LENGTH_SHORT).show();
     }
 
     private void setupAutocomplete() {
@@ -86,14 +86,14 @@ public class ActivityLocation extends AppCompatActivity implements PositionListe
                 LatLng latLng = GeoUtils.getLatLng(getBaseContext(), place.getName());
                 currentLatLng = latLng;
                 if (latLng == null)
-                    Toast.makeText(getBaseContext(), "Error during location decode", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), R.string.message_location_decode_error, Toast.LENGTH_LONG).show();
                 else focusMap(latLng);
                 Log.i("DOJO", "Place: " + place.getName());
             }
 
             @Override
             public void onError(Status status) {
-                Toast.makeText(getBaseContext(), "Location not found", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), R.string.message_location_notfound, Toast.LENGTH_LONG).show();
                 Log.i("DOJO", "An error occurred: " + status);
             }
         });
@@ -106,7 +106,7 @@ public class ActivityLocation extends AppCompatActivity implements PositionListe
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-        } else Toast.makeText(this, "Invalid location!", Toast.LENGTH_LONG).show();
+        } else Toast.makeText(this, R.string.message_invalid_location, Toast.LENGTH_LONG).show();
     }
 
 
@@ -118,7 +118,7 @@ public class ActivityLocation extends AppCompatActivity implements PositionListe
                     .setText(GeoUtils.getCityByLatLng(this, position));
             focusMap(position);
         } else
-            Toast.makeText(this, "Gps fix error, try again or select location manually", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.message_gps_error, Toast.LENGTH_LONG).show();
     }
 
 
@@ -127,8 +127,10 @@ public class ActivityLocation extends AppCompatActivity implements PositionListe
         initMap(googleMap, new DojoSettings(this).getUserPosition());
         LatLng userPosition = new DojoSettings(this).getUserPosition();
         if (userPosition != null) {
+            googleMap.getUiSettings().setAllGesturesEnabled(false);
             focusMap(userPosition);
             autocompleteFragment.setText(GeoUtils.getCityByLatLng(this, userPosition));
+            this.currentLatLng = userPosition;
         }
     }
 

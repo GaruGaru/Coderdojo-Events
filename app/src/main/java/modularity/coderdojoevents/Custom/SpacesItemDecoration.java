@@ -6,17 +6,31 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
-    public static final int DEFAULT_SPACE = 20;
-    private int space;
 
-    public SpacesItemDecoration(Context context, int space) {
-        this.space = context.getResources().getDimensionPixelSize(space);
+    public static final int DEFAULT_SPACE = 20;
+
+    private int spaceX;
+    private int spaceY;
+
+    public SpacesItemDecoration(Context context, int sx, int sy) {
+        this.spaceX = (sx != 0) ? context.getResources().getDimensionPixelSize(sx) : 0;
+        this.spaceY = (sy != 0) ? context.getResources().getDimensionPixelSize(sy) : 0;
+    }
+
+    public SpacesItemDecoration(Context context, int s) {
+        this(context, s, s);
+    }
+
+    public SpacesItemDecoration(Context context) {
+        this(context, DEFAULT_SPACE);
     }
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        outRect.left = outRect.right = outRect.bottom = space;
-        if (parent.getChildLayoutPosition(view) == 0) outRect.top = space;
+        outRect.left = outRect.right = spaceX;
+        outRect.bottom = spaceY;
+        if (parent.getChildLayoutPosition(view) == 0)
+            outRect.top = spaceY;
     }
 
 }

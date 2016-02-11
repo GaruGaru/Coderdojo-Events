@@ -1,18 +1,24 @@
 package modularity.coderdojoevents.Activities.Fragments;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import modularity.coderdojoevents.EventBrite.Response.Events;
+import modularity.coderdojoevents.R;
 
 public class EventsTabAdapter extends FragmentPagerAdapter {
 
-    private final String[] TITLES = {"Evento", "Descrizione", "Mappa", "PlaceHolder"};
+    private final String[] TITLES = new String[3];
     private Events currentEvent;
 
-    public EventsTabAdapter(FragmentManager fm, Events currentEvent) {
+    public EventsTabAdapter(Context context, FragmentManager fm, Events currentEvent) {
         super(fm);
+        TITLES[0] = context.getString(R.string.tab_title_event);
+        TITLES[1] = context.getString(R.string.tab_title_description);
+        TITLES[2] = context.getString(R.string.tab_title_map);
+
         this.currentEvent = currentEvent;
     }
 

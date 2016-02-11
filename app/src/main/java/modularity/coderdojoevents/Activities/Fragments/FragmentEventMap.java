@@ -28,9 +28,7 @@ import modularity.coderdojoevents.R;
 public class FragmentEventMap extends Fragment implements OnMapReadyCallback {
 
     private static final String ARG_POSITION = "position";
-
     private int position;
-
 
     private GoogleMap map;
     private SupportMapFragment mapView;

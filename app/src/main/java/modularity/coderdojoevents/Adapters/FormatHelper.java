@@ -13,6 +13,10 @@ import modularity.coderdojoevents.Utils.StringUtils;
  */
 public class FormatHelper {
 
+    public static String formatTitle(String title) {
+        return title.replace("-", "\n");
+    }
+
     public static String formatVenue(Venue venue) {
         String str = "";
 
@@ -51,5 +55,9 @@ public class FormatHelper {
         return DateUtils.dateFormat.getMonths()[month];
     }
 
-
+    public static String formatTimeMinutes(float minutes) {
+        int h = (int) (minutes / 60);
+        int m = (int) (minutes % 60);
+        return h + "h" + " " + m + " min";
+    }
 }
