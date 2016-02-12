@@ -15,8 +15,8 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import modularity.coderdojoevents.Activities.ActivityEventTabbed;
+import modularity.coderdojoevents.Api.EventBrite.Response.Events;
 import modularity.coderdojoevents.Custom.Picasso.BlurTransformation;
-import modularity.coderdojoevents.EventBrite.Response.Events;
 import modularity.coderdojoevents.R;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsViewHolder> {

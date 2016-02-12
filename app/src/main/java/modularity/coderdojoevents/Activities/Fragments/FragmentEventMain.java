@@ -22,7 +22,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import modularity.coderdojoevents.Adapters.FormatHelper;
-import modularity.coderdojoevents.EventBrite.Response.Events;
+import modularity.coderdojoevents.Api.EventBrite.Response.Events;
 import modularity.coderdojoevents.R;
 import modularity.coderdojoevents.Settings.DojoSettings;
 import modularity.coderdojoevents.Utils.GeoUtils;
@@ -45,6 +45,7 @@ public class FragmentEventMain extends Fragment implements OnMapReadyCallback, G
     private ImageView imageViewCar, imageViewWalk;
 
     private int position;
+
     private GoogleMap map;
     private SupportMapFragment mapView;
 
@@ -229,4 +230,5 @@ public class FragmentEventMain extends Fragment implements OnMapReadyCallback, G
             openTicketUrl();
 
     }
+
 }

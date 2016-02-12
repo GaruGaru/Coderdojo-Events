@@ -1,4 +1,4 @@
-package modularity.coderdojoevents.EventBrite.Response;
+package modularity.coderdojoevents.Api.EventBrite.Response;
 
 import java.io.Serializable;
 

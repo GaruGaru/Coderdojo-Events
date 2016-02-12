@@ -1,6 +1,6 @@
-package modularity.coderdojoevents.EventBrite.Android;
+package modularity.coderdojoevents.Api.EventBrite.Android;
 
-import modularity.coderdojoevents.EventBrite.Response.BriteEvent;
+import modularity.coderdojoevents.Api.EventBrite.Response.BriteEvent;
 
 /**
  * Created by Garu on 22/01/2016.

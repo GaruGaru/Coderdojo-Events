@@ -1,8 +1,8 @@
-package modularity.coderdojoevents.EventBrite.Response;
+package modularity.coderdojoevents.Api.EventBrite.Response;
 
 import java.io.Serializable;
 
-public class Next_occurrence implements Serializable {
+public class End implements Serializable {
     private String timezone;
 
     private String utc;

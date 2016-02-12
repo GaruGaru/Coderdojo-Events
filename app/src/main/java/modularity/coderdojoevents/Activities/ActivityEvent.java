@@ -19,7 +19,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import modularity.coderdojoevents.Adapters.FormatHelper;
-import modularity.coderdojoevents.EventBrite.Response.Events;
+import modularity.coderdojoevents.Api.EventBrite.Response.Events;
 import modularity.coderdojoevents.R;
 
 /**

@@ -80,11 +80,6 @@ public class ActivityLocation extends AppCompatActivity implements PositionListe
         }
     }
 
-    @OnClick(R.id.gpsButton)
-    protected void requestGps() {
-        new TimedPositionRequester(this, 10000).requestPosition(getBaseContext());
-        Toast.makeText(this, R.string.message_waiting_gps, Toast.LENGTH_SHORT).show();
-    }
 
     private void setupAutocomplete() {
         autocompleteFragment = (PlaceAutocompleteFragment)
@@ -224,8 +219,9 @@ public class ActivityLocation extends AppCompatActivity implements PositionListe
         }
     }
 
-    private void gpsAutoSearch() {
-        requestGps();
+    @OnClick(R.id.gpsButton)
+    protected void gpsAutoSearch() {
+        new TimedPositionRequester(this, 10000).requestPosition(getBaseContext());
         autoGpsDialog = new MaterialDialog.Builder(this)
                 .title("Gps")
                 .content(R.string.message_gps_wait)

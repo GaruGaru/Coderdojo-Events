@@ -1,4 +1,4 @@
-package modularity.coderdojoevents.EventBrite.Android;
+package modularity.coderdojoevents.Api.EventBrite.Android;
 
 import android.os.AsyncTask;
 
@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import modularity.coderdojoevents.EventBrite.Api.BriteManager;
-import modularity.coderdojoevents.EventBrite.Response.BriteEvent;
+import modularity.coderdojoevents.Api.EventBrite.Api.EventBrite;
+import modularity.coderdojoevents.Api.EventBrite.Response.BriteEvent;
 import retrofit.Call;
 import retrofit.Response;
 
@@ -31,8 +31,8 @@ public class AsyncBriteRequestArea extends AsyncTask<String, Integer, BriteEvent
     protected BriteEvent doInBackground(String... params) {
         try {
 
-            BriteManager briteManager = new BriteManager();
-            Call<BriteEvent> apiCall = briteManager.getApi().getEventsByArea(params[0], params[1], params[2], params[3], params[4], params[5], BriteManager.PUBLIC_TOKEN);
+            EventBrite eventBrite = new EventBrite();
+            Call<BriteEvent> apiCall = eventBrite.getApi().getEventsByArea(params[0], params[1], params[2], params[3], params[4], params[5], EventBrite.PUBLIC_TOKEN);
             Response<BriteEvent> response = apiCall.execute();
             this.responseCode = response.code();
             return (response.isSuccess()) ? response.body() : null;

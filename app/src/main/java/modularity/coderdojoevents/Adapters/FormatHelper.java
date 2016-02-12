@@ -2,9 +2,9 @@ package modularity.coderdojoevents.Adapters;
 
 import java.util.Calendar;
 
-import modularity.coderdojoevents.EventBrite.Response.End;
-import modularity.coderdojoevents.EventBrite.Response.Start;
-import modularity.coderdojoevents.EventBrite.Response.Venue;
+import modularity.coderdojoevents.Api.EventBrite.Response.End;
+import modularity.coderdojoevents.Api.EventBrite.Response.Start;
+import modularity.coderdojoevents.Api.EventBrite.Response.Venue;
 import modularity.coderdojoevents.Utils.DateUtils;
 import modularity.coderdojoevents.Utils.StringUtils;
 

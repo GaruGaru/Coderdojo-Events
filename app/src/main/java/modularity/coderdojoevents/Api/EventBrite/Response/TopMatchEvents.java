@@ -1,8 +1,11 @@
-package modularity.coderdojoevents.EventBrite.Response;
+package modularity.coderdojoevents.Api.EventBrite.Response;
 
 import java.io.Serializable;
 
-public class Events implements Serializable {
+public class TopMatchEvents implements Serializable {
+
+    private Venue venue;
+
     private String online_event;
 
     private String locale;
@@ -11,13 +14,13 @@ public class Events implements Serializable {
 
     private String is_locked;
 
+    private Next_occurrence next_occurrence;
+
     private String currency;
 
     private String changed;
 
     private String id;
-
-    private String is_series_parent;
 
     private String created;
 
@@ -25,13 +28,13 @@ public class Events implements Serializable {
 
     private Name name;
 
-    private String capacity;
-
     private String venue_id;
 
-    private End end;
+    private String capacity;
 
-    private String is_series;
+    private String user_id;
+
+    private End end;
 
     private String subcategory_id;
 
@@ -39,15 +42,15 @@ public class Events implements Serializable {
 
     private Logo logo;
 
+    private String hide_end_date;
+
     private String shareable;
+
+    private String[] ticket_classes;
 
     private String status;
 
     private String category_id;
-
-    private Venue venue;
-
-    private Organizer organizer;
 
     private String url;
 
@@ -55,23 +58,19 @@ public class Events implements Serializable {
 
     private Start start;
 
-    private String resource_uri;
-
     private String format_id;
 
-    private String tx_time_limit;
+    private String language;
 
     private String hide_start_date;
 
+    private String tx_time_limit;
+
+    private String tld;
+
     private String privacy_setting;
 
-    public Organizer getOrganizer() {
-        return organizer;
-    }
-
-    public void setOrganizer(Organizer organizer) {
-        this.organizer = organizer;
-    }
+    private String is_free;
 
     public String getOnline_event() {
         return online_event;
@@ -105,6 +104,14 @@ public class Events implements Serializable {
         this.is_locked = is_locked;
     }
 
+    public Next_occurrence getNext_occurrence() {
+        return next_occurrence;
+    }
+
+    public void setNext_occurrence(Next_occurrence next_occurrence) {
+        this.next_occurrence = next_occurrence;
+    }
+
     public String getCurrency() {
         return currency;
     }
@@ -127,14 +134,6 @@ public class Events implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getIs_series_parent() {
-        return is_series_parent;
-    }
-
-    public void setIs_series_parent(String is_series_parent) {
-        this.is_series_parent = is_series_parent;
     }
 
     public String getCreated() {
@@ -161,14 +160,6 @@ public class Events implements Serializable {
         this.name = name;
     }
 
-    public String getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(String capacity) {
-        this.capacity = capacity;
-    }
-
     public String getVenue_id() {
         return venue_id;
     }
@@ -177,20 +168,28 @@ public class Events implements Serializable {
         this.venue_id = venue_id;
     }
 
+    public String getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(String capacity) {
+        this.capacity = capacity;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
     public End getEnd() {
         return end;
     }
 
     public void setEnd(End end) {
         this.end = end;
-    }
-
-    public String getIs_series() {
-        return is_series;
-    }
-
-    public void setIs_series(String is_series) {
-        this.is_series = is_series;
     }
 
     public String getSubcategory_id() {
@@ -217,12 +216,28 @@ public class Events implements Serializable {
         this.logo = logo;
     }
 
+    public String getHide_end_date() {
+        return hide_end_date;
+    }
+
+    public void setHide_end_date(String hide_end_date) {
+        this.hide_end_date = hide_end_date;
+    }
+
     public String getShareable() {
         return shareable;
     }
 
     public void setShareable(String shareable) {
         this.shareable = shareable;
+    }
+
+    public String[] getTicket_classes() {
+        return ticket_classes;
+    }
+
+    public void setTicket_classes(String[] ticket_classes) {
+        this.ticket_classes = ticket_classes;
     }
 
     public String getStatus() {
@@ -239,14 +254,6 @@ public class Events implements Serializable {
 
     public void setCategory_id(String category_id) {
         this.category_id = category_id;
-    }
-
-    public Venue getVenue() {
-        return venue;
-    }
-
-    public void setVenue(Venue venue) {
-        this.venue = venue;
     }
 
     public String getUrl() {
@@ -273,14 +280,6 @@ public class Events implements Serializable {
         this.start = start;
     }
 
-    public String getResource_uri() {
-        return resource_uri;
-    }
-
-    public void setResource_uri(String resource_uri) {
-        this.resource_uri = resource_uri;
-    }
-
     public String getFormat_id() {
         return format_id;
     }
@@ -289,12 +288,12 @@ public class Events implements Serializable {
         this.format_id = format_id;
     }
 
-    public String getTx_time_limit() {
-        return tx_time_limit;
+    public String getLanguage() {
+        return language;
     }
 
-    public void setTx_time_limit(String tx_time_limit) {
-        this.tx_time_limit = tx_time_limit;
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     public String getHide_start_date() {
@@ -305,6 +304,22 @@ public class Events implements Serializable {
         this.hide_start_date = hide_start_date;
     }
 
+    public String getTx_time_limit() {
+        return tx_time_limit;
+    }
+
+    public void setTx_time_limit(String tx_time_limit) {
+        this.tx_time_limit = tx_time_limit;
+    }
+
+    public String getTld() {
+        return tld;
+    }
+
+    public void setTld(String tld) {
+        this.tld = tld;
+    }
+
     public String getPrivacy_setting() {
         return privacy_setting;
     }
@@ -313,8 +328,24 @@ public class Events implements Serializable {
         this.privacy_setting = privacy_setting;
     }
 
+    public String getIs_free() {
+        return is_free;
+    }
+
+    public void setIs_free(String is_free) {
+        this.is_free = is_free;
+    }
+
     @Override
     public String toString() {
-        return "ClassPojo [online_event = " + online_event + ", locale = " + locale + ", organizer_id = " + organizer_id + ", is_locked = " + is_locked + ", currency = " + currency + ", changed = " + changed + ", id = " + id + ", is_series_parent = " + is_series_parent + ", created = " + created + ", description = " + description + ", name = " + name + ", capacity = " + capacity + ", venue_id = " + venue_id + ", end = " + end + ", is_series = " + is_series + ", subcategory_id = " + subcategory_id + ", listed = " + listed + ", logo = " + logo + ", shareable = " + shareable + ", status = " + status + ", category_id = " + category_id + ", venue = " + venue + ", url = " + url + ", logo_id = " + logo_id + ", start = " + start + ", resource_uri = " + resource_uri + ", format_id = " + format_id + ", tx_time_limit = " + tx_time_limit + ", hide_start_date = " + hide_start_date + ", privacy_setting = " + privacy_setting + "]";
+        return "ClassPojo [online_event = " + online_event + ", locale = " + locale + ", organizer_id = " + organizer_id + ", is_locked = " + is_locked + ", next_occurrence = " + next_occurrence + ", currency = " + currency + ", changed = " + changed + ", id = " + id + ", created = " + created + ", description = " + description + ", name = " + name + ", venue_id = " + venue_id + ", capacity = " + capacity + ", user_id = " + user_id + ", end = " + end + ", subcategory_id = " + subcategory_id + ", listed = " + listed + ", logo = " + logo + ", hide_end_date = " + hide_end_date + ", shareable = " + shareable + ", ticket_classes = " + ticket_classes + ", status = " + status + ", category_id = " + category_id + ", url = " + url + ", logo_id = " + logo_id + ", start = " + start + ", format_id = " + format_id + ", language = " + language + ", hide_start_date = " + hide_start_date + ", tx_time_limit = " + tx_time_limit + ", tld = " + tld + ", privacy_setting = " + privacy_setting + ", is_free = " + is_free + "]";
+    }
+
+    public Venue getVenue() {
+        return venue;
+    }
+
+    public void setVenue(Venue venue) {
+        this.venue = venue;
     }
 }

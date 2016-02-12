@@ -1,8 +1,8 @@
-package modularity.coderdojoevents.EventBrite.Response;
+package modularity.coderdojoevents.Api.EventBrite.Response;
 
 import java.io.Serializable;
 
-public class Name implements Serializable {
+public class Description implements Serializable {
     private String text;
 
     private String html;

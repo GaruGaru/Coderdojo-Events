@@ -15,11 +15,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import modularity.coderdojoevents.Adapters.EventsAdapter;
+import modularity.coderdojoevents.Api.EventBrite.Android.AsyncBriteRequestArea;
+import modularity.coderdojoevents.Api.EventBrite.Android.BriteListener;
+import modularity.coderdojoevents.Api.EventBrite.Response.BriteEvent;
+import modularity.coderdojoevents.Api.EventBrite.Response.Events;
 import modularity.coderdojoevents.Custom.SpacesItemDecoration;
-import modularity.coderdojoevents.EventBrite.Android.AsyncBriteRequestArea;
-import modularity.coderdojoevents.EventBrite.Android.BriteListener;
-import modularity.coderdojoevents.EventBrite.Response.BriteEvent;
-import modularity.coderdojoevents.EventBrite.Response.Events;
 import modularity.coderdojoevents.R;
 import modularity.coderdojoevents.Settings.DojoSettings;
 
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements BriteListener, Sw
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         this.settingsManager = new DojoSettings(this);
 

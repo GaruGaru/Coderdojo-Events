@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import modularity.coderdojoevents.EventBrite.Response.Events;
+import modularity.coderdojoevents.Api.EventBrite.Response.Events;
 import modularity.coderdojoevents.R;
 
 /**

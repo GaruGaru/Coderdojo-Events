@@ -12,7 +12,7 @@ import com.astuetz.PagerSlidingTabStrip;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import modularity.coderdojoevents.Activities.Fragments.EventsTabAdapter;
-import modularity.coderdojoevents.EventBrite.Response.Events;
+import modularity.coderdojoevents.Api.EventBrite.Response.Events;
 import modularity.coderdojoevents.R;
 
 /**

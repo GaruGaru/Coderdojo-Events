@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import modularity.coderdojoevents.EventBrite.Response.BriteEvent;
+import modularity.coderdojoevents.Api.EventBrite.Response.BriteEvent;
 import modularity.coderdojoevents.Utils.Json;
 
 /**

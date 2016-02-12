@@ -1,8 +1,8 @@
-package modularity.coderdojoevents.EventBrite.Api;
+package modularity.coderdojoevents.Api.EventBrite.Api;
 
-import modularity.coderdojoevents.EventBrite.Response.BriteEvent;
-import modularity.coderdojoevents.EventBrite.Response.EventList;
-import modularity.coderdojoevents.EventBrite.Response.Venue;
+import modularity.coderdojoevents.Api.EventBrite.Response.BriteEvent;
+import modularity.coderdojoevents.Api.EventBrite.Response.EventList;
+import modularity.coderdojoevents.Api.EventBrite.Response.Venue;
 import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.Path;
