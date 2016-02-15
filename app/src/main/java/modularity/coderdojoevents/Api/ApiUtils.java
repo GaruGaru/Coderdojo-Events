@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
  * Created by Garu on 12/02/2016.
  */
 public class ApiUtils {
-    private static final int TIMEOUT = 3;
+    private static final int TIMEOUT = 6;
 
     public static OkHttpClient buildClient() {
         OkHttpClient client = new OkHttpClient();

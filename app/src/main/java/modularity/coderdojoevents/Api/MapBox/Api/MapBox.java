@@ -1,4 +1,4 @@
-package modularity.coderdojoevents.Api.MapBox;
+package modularity.coderdojoevents.Api.MapBox.Api;
 
 import modularity.coderdojoevents.Api.ApiUtils;
 import retrofit.GsonConverterFactory;

@@ -1,15 +1,15 @@
 package modularity.coderdojoevents.Api.MapBox.Response;
 
 public class MapDirection {
-    private String[][] durations;
+    private Double[][] durations;
 
     private String code;
 
-    public String[][] getDurations() {
+    public Double[][] getDurations() {
         return durations;
     }
 
-    public void setDurations(String[][] durations) {
+    public void setDurations(Double[][] durations) {
         this.durations = durations;
     }
 

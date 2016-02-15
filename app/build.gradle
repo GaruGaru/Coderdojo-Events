@@ -8,8 +8,8 @@ android {
         applicationId "modularity.coderdojoevents"
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 10
+        versionName "2.0"
     }
     buildTypes {
         release {
@@ -37,6 +37,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:23.1.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.google.android.gms:play-services:8.4.0'
+    compile 'com.nhaarman.supertooltips:library:3.0.0'
     compile('com.github.afollestad.material-dialogs:core:0.8.5.4@aar') {
         transitive = true
     }

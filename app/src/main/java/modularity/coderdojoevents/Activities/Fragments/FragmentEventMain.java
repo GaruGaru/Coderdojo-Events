@@ -1,18 +1,17 @@
 package modularity.coderdojoevents.Activities.Fragments;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -21,36 +20,35 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Arrays;
+
 import modularity.coderdojoevents.Adapters.FormatHelper;
+import modularity.coderdojoevents.Adapters.TicketAdapter;
 import modularity.coderdojoevents.Api.EventBrite.Response.Events;
+import modularity.coderdojoevents.Api.EventBrite.Response.Ticket_classes;
+import modularity.coderdojoevents.Custom.FixedSizeLinearLayout;
 import modularity.coderdojoevents.R;
 import modularity.coderdojoevents.Settings.DojoSettings;
-import modularity.coderdojoevents.Utils.GeoUtils;
 import modularity.coderdojoevents.Utils.MapsUtils;
 
 /**
  * Created by Garu on 25/01/2016.
  */
-public class FragmentEventMain extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener, View.OnClickListener {
+public class FragmentEventMain extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
     private static final String ARG_POSITION = "position";
     protected TextView textViewTitle;
     protected TextView textViewEventVenue;
     protected TextView textViewEventDate;
-    protected TextView textViewDistance;
-
-    protected TextView textViewCarTime;
-    protected TextView textViewWalkTime;
-
-    private ImageView imageViewCar, imageViewWalk;
-
     private int position;
-
     private GoogleMap map;
     private SupportMapFragment mapView;
+    private ScrollView scrollView;
+    private View ticketContainerView;
+
+    private RecyclerView ticketList;
 
     private Events event;
-    private FloatingActionButton ticketButton;
 
 
     public static FragmentEventMain newInstance(int position, Events event) {
@@ -72,7 +70,6 @@ public class FragmentEventMain extends Fragment implements OnMapReadyCallback, G
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View v = inflater.inflate(R.layout.fragment_event, container, false);
         this.event = (Events) getArguments().getSerializable("event");
         initLayout(v);
@@ -84,41 +81,42 @@ public class FragmentEventMain extends Fragment implements OnMapReadyCallback, G
         this.textViewEventDate = (TextView) v.findViewById(R.id.textViewEventDate);
         this.textViewEventVenue = (TextView) v.findViewById(R.id.textViewEventVenue);
         this.textViewTitle = (TextView) v.findViewById(R.id.textViewEventTitle);
-        this.textViewDistance = (TextView) v.findViewById(R.id.textViewDistance);
-        this.textViewWalkTime = (TextView) v.findViewById(R.id.textViewTimeFoot);
-        this.textViewCarTime = (TextView) v.findViewById(R.id.textViewTimeCar);
+        this.scrollView = (ScrollView) v.findViewById(R.id.scrollView);
+        this.ticketList = (RecyclerView) v.findViewById(R.id.ticketList);
+        this.ticketContainerView = v.findViewById(R.id.cardTicketContainer);
 
-        this.imageViewCar = (ImageView) v.findViewById(R.id.imageViewCar);
-        this.imageViewWalk = (ImageView) v.findViewById(R.id.imageViewWalk);
-        this.ticketButton = (FloatingActionButton) v.findViewById(R.id.ticketButton);
+        setupLayout(v, this.event);
 
-        this.imageViewWalk.setOnClickListener(this);
-        this.ticketButton.setOnClickListener(this);
-        this.imageViewCar.setOnClickListener(this);
-
-        setupLayout(this.event);
+        scrollView.scrollTo(0, 0);
 
     }
 
-    public void setupLayout(Events event) {
-        DojoSettings settings = new DojoSettings(getContext());
+    public void setupLayout(View v, Events event) {
 
-        int distance = (int) (GeoUtils.distance(
-                settings.getUserPosition().latitude,
-                settings.getUserPosition().longitude,
-                Double.valueOf(event.getVenue().getLatitude()),
-                Double.valueOf(event.getVenue().getLongitude())
-        ) / 1000);
+        setupMapView();
+
+        setupTicketList();
 
         textViewTitle.setText(FormatHelper.formatTitle(event.getName().getText()));
         textViewEventVenue.setText(FormatHelper.formatVenue(event.getVenue()));
         textViewEventDate.setText(FormatHelper.formatDate(event.getStart(), event.getEnd()));
-        textViewDistance.setText(distance + " Km");
 
-        textViewCarTime.setText(FormatHelper.formatTimeMinutes(GeoUtils.getTravelTime(distance, GeoUtils.CAR_SPEED)));
-        textViewWalkTime.setText(FormatHelper.formatTimeMinutes(GeoUtils.getTravelTime(distance, GeoUtils.WALK_SPEED)));
+    }
 
-        setupMapView();
+    private void setupTicketList() {
+        Ticket_classes[] tickets = event.getTicket();
+
+        if (tickets == null || tickets.length == 0) {
+            this.ticketContainerView.setVisibility(View.GONE);
+        } else {
+            ticketList.setHasFixedSize(true);
+            LinearLayoutManager llm = new FixedSizeLinearLayout(getContext());
+            llm.setOrientation(LinearLayoutManager.VERTICAL);
+            ticketList.setLayoutManager(llm);
+            ticketList.setAdapter(new TicketAdapter(getContext(), event.getUrl(), Arrays.asList(tickets)));
+        }
+
+
     }
 
     protected void launchMapIntent() {
@@ -135,26 +133,15 @@ public class FragmentEventMain extends Fragment implements OnMapReadyCallback, G
         }
     }
 
-    protected void openTicketUrl() {
-        String url = event.getUrl();
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(url));
-        getContext().startActivity(i);
-    }
 
     private void initMap(GoogleMap map, LatLng pos) {
 
         this.map = map;
 
         map.getUiSettings().setMyLocationButtonEnabled(false);
-
-
         map.getUiSettings().setAllGesturesEnabled(false);
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(pos, 15);
-        map.animateCamera(cameraUpdate);
-
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, 15));
 
         map.addMarker(new MarkerOptions()
                         .position(pos)
@@ -220,15 +207,6 @@ public class FragmentEventMain extends Fragment implements OnMapReadyCallback, G
     @Override
     public void onMapClick(LatLng latLng) {
         launchMapIntent();
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v.equals(imageViewCar) || v.equals(imageViewWalk))
-            launchMapIntent();
-        else if (v.equals(ticketButton))
-            openTicketUrl();
-
     }
 
 }

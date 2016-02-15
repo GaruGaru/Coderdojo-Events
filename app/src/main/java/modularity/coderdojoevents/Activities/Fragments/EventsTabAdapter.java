@@ -40,6 +40,7 @@ public class EventsTabAdapter extends FragmentPagerAdapter {
             return FragmentEventDescription.newInstance(position, currentEvent);
         else if (position == 2)
             return FragmentEventMap.newInstance(position, currentEvent);
+
         else return FragmentEventMain.newInstance(position, currentEvent);
     }
 

@@ -22,7 +22,11 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+
+    <include
+        android:id="@+id/eventsLayout"
+        layout="@layout/content_main" />
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/buttonRefresh"
@@ -31,6 +35,15 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_gps_1"
+        app:layout_behavior="modularity.coderdojoevents.Custom.ScrollAwareFABBehavior" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/buttonWorld"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_globe"
         app:layout_behavior="modularity.coderdojoevents.Custom.ScrollAwareFABBehavior" />
 
 </android.support.design.widget.CoordinatorLayout>

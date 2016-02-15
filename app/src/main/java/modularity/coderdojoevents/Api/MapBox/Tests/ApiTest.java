@@ -2,10 +2,11 @@ package modularity.coderdojoevents.Api.MapBox.Tests;
 
 import java.io.IOException;
 
-import modularity.coderdojoevents.Api.MapBox.MapBox;
+import modularity.coderdojoevents.Api.MapBox.Api.MapBox;
 import modularity.coderdojoevents.Api.MapBox.Response.DirectionRequest;
 import modularity.coderdojoevents.Api.MapBox.Response.MapDirection;
 import retrofit.Call;
+import retrofit.Response;
 
 /**
  * Created by Garu on 12/02/2016.
@@ -15,12 +16,13 @@ public class ApiTest {
 
         MapBox mapBox = new MapBox();
 
-        DirectionRequest request = new DirectionRequest(43.684516, 11.258139, 43.752273, 11.319688);
-        Call<MapDirection> direction = mapBox.getMapBoxApi().getDirection(MapBox.TYPE_DRIVING, request, MapBox.TOKEN);
+        DirectionRequest request = new DirectionRequest(43.684516, 11.258139, 41.902783, 12.496366);
 
-        MapDirection body = direction.execute().body();
+        Call<MapDirection> direction = mapBox.getMapBoxApi().getDirection(MapBox.TYPE_DRIVING, request.toBody(), MapBox.TOKEN);
 
-        System.out.print(body.toString());
+        Response<MapDirection> execute = direction.execute();
+
+        System.out.println(execute.toString());
 
     }
 }

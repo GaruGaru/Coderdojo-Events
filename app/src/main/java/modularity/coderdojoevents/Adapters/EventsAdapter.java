@@ -2,7 +2,6 @@ package modularity.coderdojoevents.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +16,7 @@ import java.util.List;
 import modularity.coderdojoevents.Activities.ActivityEventTabbed;
 import modularity.coderdojoevents.Api.EventBrite.Response.Events;
 import modularity.coderdojoevents.Custom.Picasso.BlurTransformation;
+import modularity.coderdojoevents.Custom.Picasso.GradientTransformation;
 import modularity.coderdojoevents.R;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsViewHolder> {
@@ -64,16 +64,21 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
         });
 
 
-        if (!event.getLogo().getUrl().isEmpty()) {
+        if (event.getLogo() != null && event.getLogo().getUrl() != null && !event.getLogo().getUrl().isEmpty()) {
             Picasso.with(context)
                     .load(event.getLogo().getUrl())
-                    .placeholder(R.drawable.ic_dojo_big)
+                    .placeholder(R.drawable.ic_dojo_standard)
                     .fit()
                     .centerCrop()
                     .transform(new BlurTransformation(context, 24))
                     .into(viewHolder.imageViewIcon);
         } else
-            viewHolder.imageViewIcon.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.ic_launcher));
+            Picasso.with(context)
+                    .load(R.drawable.ic_dojo_standard)
+                    .fit()
+                    .centerCrop()
+                    .transform(new GradientTransformation())
+                    .into(viewHolder.imageViewIcon);
 
 
     }

@@ -20,6 +20,14 @@
     <string name="string_remember_pos">\nRicorda che puoi cambiare la tua posizione in ogni momento tramite l\'apposito bottone!</string>
     <string name="title_user_pos">Posizione utente</string>
     <string name="string_dismiss">Annulla</string>
+    <string name="tab_title_tickets">Biglietti</string>
+    <string name="title_available_activities">Attività disponibili</string>
+    <string name="city">Città</string>
+    <string name="take_tickets">Prenota il tuo posto</string>
+    <string name="message_no_events_found">Nessun evento trovato</string>
+    <string name="message_request_error">Errore di rete</string>
+    <string name="message_connection_error">Connection error</string>
+    <string name="message_no_events">No events found</string>
 
 
 </resources>

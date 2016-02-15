@@ -1,8 +1,13 @@
 package modularity.coderdojoevents.Api.EventBrite.Response;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.Serializable;
 
 public class Events implements Serializable {
+
+    private Ticket_classes[] ticket_classes;
+
     private String online_event;
 
     private String locale;
@@ -64,6 +69,15 @@ public class Events implements Serializable {
     private String hide_start_date;
 
     private String privacy_setting;
+
+    public LatLng getLocation() {
+        if (getVenue() == null) return null;
+        return new LatLng(Double.valueOf(getVenue().getLatitude()), Double.valueOf(getVenue().getLongitude()));
+    }
+
+    public Ticket_classes[] getTicket() {
+        return ticket_classes;
+    }
 
     public Organizer getOrganizer() {
         return organizer;

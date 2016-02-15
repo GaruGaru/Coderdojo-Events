@@ -12,6 +12,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
@@ -25,6 +26,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Collections;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import modularity.coderdojoevents.Location.PositionListener;
@@ -35,6 +38,7 @@ import modularity.coderdojoevents.Utils.GeoUtils;
 
 public class ActivityLocation extends AppCompatActivity implements PositionListener, OnMapReadyCallback {
 
+    public static final String EXTRA_REFRESH = "REFRESH";
     private LatLng currentLatLng = null;
 
     private GoogleMap map;
@@ -47,6 +51,7 @@ public class ActivityLocation extends AppCompatActivity implements PositionListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
         ButterKnife.bind(this);
@@ -60,6 +65,7 @@ public class ActivityLocation extends AppCompatActivity implements PositionListe
         setupAutocomplete();
 
         showDialogIfNeeded();
+
 
     }
 
@@ -82,9 +88,10 @@ public class ActivityLocation extends AppCompatActivity implements PositionListe
 
 
     private void setupAutocomplete() {
-        autocompleteFragment = (PlaceAutocompleteFragment)
-                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+        autocompleteFragment = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
+        autocompleteFragment.setFilter(AutocompleteFilter.create(Collections.singletonList(AutocompleteFilter.TYPE_FILTER_CITIES)));
+        autocompleteFragment.setHint(getString(R.string.city));
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
@@ -120,17 +127,22 @@ public class ActivityLocation extends AppCompatActivity implements PositionListe
         if (latLng == null)
             Toast.makeText(getBaseContext(), R.string.message_location_decode_error, Toast.LENGTH_LONG).show();
         else {
-            focusMap(latLng);
-            showDialogConfirm();
+            if (!GeoUtils.getCityByLatLng(this, currentLatLng).equals("null")) {
+                focusMap(latLng);
+                showDialogConfirm();
+            } else showErrorDialog();
         }
     }
 
     @OnClick(R.id.buttonConfirm)
     protected void confirm() {
         if (currentLatLng != null) {
-            new DojoSettings(this).setUserPosition(currentLatLng);
+            DojoSettings settings = new DojoSettings(this);
+            settings.setUserPosition(currentLatLng);
+            settings.setEvents(null);
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra(EXTRA_REFRESH, true);
             startActivity(intent);
         } else showErrorDialog();
     }
@@ -249,7 +261,7 @@ public class ActivityLocation extends AppCompatActivity implements PositionListe
             map.addMarker(new MarkerOptions()
                             .position(position)
                             .title("Tu")
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_dojo_pin))
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_walk))
             );
         }
     }
