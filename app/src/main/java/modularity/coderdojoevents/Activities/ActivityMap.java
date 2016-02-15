@@ -18,12 +18,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import butterknife.ButterKnife;
 import modularity.coderdojoevents.Api.EventBrite.Android.AsyncBriteRequestArea;
 import modularity.coderdojoevents.Api.EventBrite.Android.BriteListener;
+import modularity.coderdojoevents.Api.EventBrite.RequestBuilder.Request;
+import modularity.coderdojoevents.Api.EventBrite.RequestBuilder.RequestBuilder;
 import modularity.coderdojoevents.Api.EventBrite.Response.BriteEvent;
 import modularity.coderdojoevents.Api.EventBrite.Response.Events;
 import modularity.coderdojoevents.R;
 import modularity.coderdojoevents.Settings.DojoSettings;
 
-public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback {
+public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback, BriteListener {
 
     public static final int DEFAULT_ZOOM = 8;
     private GoogleMap map;
@@ -43,37 +45,22 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         this.dojoSettings = new DojoSettings(this);
         setupMapView();
 
     }
 
     private void loadDojos() {
-        new AsyncBriteRequestArea(new BriteListener() {
-            @Override
-            public void onRequestDone(BriteEvent eventList) {
-
-                events = eventList.getEvents();
-
-                for (Events e : events) {
-                    LatLng location = e.getLocation();
-                    String name = e.getName().getText();
-                    addMarker(location, name, R.drawable.ic_dojo_pin);
-                }
-
-            }
-
-            @Override
-            public void onRequestError(int errorCode) {
-
-            }
-        }).execute("Coderdojo",
-                String.valueOf(dojoSettings.getUserPosition().latitude),
-                String.valueOf(dojoSettings.getUserPosition().longitude),
-                "100000km",
-                "venue,organizer,ticket_classes",
-                "date"
-        );
+        Request request = RequestBuilder.build()
+                .search("Coderdojo")
+                .from(dojoSettings.getUserPosition())
+                .within(1000000).unit(Request.UNIT_KM)
+                .expand("venue", "organizer", "ticket_classes");
+        new AsyncBriteRequestArea(this).execute(request);
     }
 
     private void openEventInfo(Events event) {
@@ -137,5 +124,21 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
                 return e;
         }
         return null;
+    }
+
+    @Override
+    public void onRequestDone(BriteEvent eventList) {
+        events = eventList.getEvents();
+        for (Events e : events) {
+            LatLng location = e.getLocation();
+            String name = e.getName().getText();
+            addMarker(location, name, R.drawable.ic_dojo_pin);
+        }
+
+    }
+
+    @Override
+    public void onRequestError(int errorCode) {
+
     }
 }

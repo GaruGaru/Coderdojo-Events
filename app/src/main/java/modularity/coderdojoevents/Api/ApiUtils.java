@@ -11,13 +11,13 @@ import java.util.concurrent.TimeUnit;
 public class ApiUtils {
     private static final int TIMEOUT = 6;
 
-    public static OkHttpClient buildClient() {
+    public static OkHttpClient buildHttpClient() {
         OkHttpClient client = new OkHttpClient();
         client.setConnectTimeout(TIMEOUT, TimeUnit.SECONDS);
         client.setReadTimeout(TIMEOUT, TimeUnit.SECONDS);
         client.setWriteTimeout(TIMEOUT, TimeUnit.SECONDS);
         HttpLoggingInterceptor logger = new HttpLoggingInterceptor();
-        logger.setLevel(HttpLoggingInterceptor.Level.BODY);
+        logger.setLevel(HttpLoggingInterceptor.Level.NONE);
         client.interceptors().add(logger);
         return client;
     }

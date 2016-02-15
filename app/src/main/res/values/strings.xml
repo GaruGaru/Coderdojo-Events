@@ -28,6 +28,8 @@
     <string name="message_request_error">Errore di rete</string>
     <string name="message_connection_error">Connection error</string>
     <string name="message_no_events">No events found</string>
+    <string name="activity_welcome_title">Benvenuto</string>
+    <string name="activity_map_complete_title">Coderdojo Events</string>
 
 
 </resources>

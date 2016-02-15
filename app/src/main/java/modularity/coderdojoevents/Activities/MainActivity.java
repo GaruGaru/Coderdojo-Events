@@ -19,6 +19,8 @@ import butterknife.OnClick;
 import modularity.coderdojoevents.Adapters.EventsAdapter;
 import modularity.coderdojoevents.Api.EventBrite.Android.AsyncBriteRequestArea;
 import modularity.coderdojoevents.Api.EventBrite.Android.BriteListener;
+import modularity.coderdojoevents.Api.EventBrite.RequestBuilder.Request;
+import modularity.coderdojoevents.Api.EventBrite.RequestBuilder.RequestBuilder;
 import modularity.coderdojoevents.Api.EventBrite.Response.BriteEvent;
 import modularity.coderdojoevents.Api.EventBrite.Response.Events;
 import modularity.coderdojoevents.Custom.SpacesItemDecoration;
@@ -85,19 +87,20 @@ public class MainActivity extends AppCompatActivity implements BriteListener, Sw
         }
     }
 
-    // Todo request builder
+
     protected void executeRequest(boolean forceUpdate) {
         swipeRefreshLayout.setRefreshing(true);
         setEvents(null);
-        if (settingsManager.getUserPosition() != null && (forceUpdate || settingsManager.getEvents() == null))
-            new AsyncBriteRequestArea(this).execute("Coderdojo",
-                    String.valueOf(settingsManager.getUserPosition().latitude),
-                    String.valueOf(settingsManager.getUserPosition().longitude),
-                    "50km",
-                    "venue,organizer,ticket_classes",
-                    "date"
-            );
-        else onRequestDone(settingsManager.getEvents());
+        if (settingsManager.getUserPosition() != null && (forceUpdate || settingsManager.getEvents() == null)) {
+            Request request = RequestBuilder.build()
+                    .search("Coderdojo")
+                    .from(settingsManager.getUserPosition())
+                    .within(50).unit(Request.UNIT_KM)
+                    .expand("venue", "organizer", "ticket_classes")
+                    .sortBy("date");
+            new AsyncBriteRequestArea(this).execute(request);
+
+        } else onRequestDone(settingsManager.getEvents());
     }
 
     @OnClick(R.id.buttonWorld)

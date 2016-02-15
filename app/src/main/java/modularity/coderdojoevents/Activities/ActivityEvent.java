@@ -121,11 +121,7 @@ public class ActivityEvent extends AppCompatActivity implements OnMapReadyCallba
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng location = new LatLng(
-                Double.valueOf(event.getVenue().getLatitude()),
-                Double.valueOf(event.getVenue().getLongitude())
-        );
-        initMap(googleMap, location);
+        initMap(googleMap, event.getLocation());
     }
 }
 

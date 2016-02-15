@@ -19,7 +19,7 @@ public class MapBox {
     public MapBox() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ENDPOINT)
-                .client(ApiUtils.buildClient())
+                .client(ApiUtils.buildHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

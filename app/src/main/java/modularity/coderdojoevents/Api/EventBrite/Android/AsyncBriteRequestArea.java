@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import modularity.coderdojoevents.Api.EventBrite.Api.EventBrite;
+import modularity.coderdojoevents.Api.EventBrite.RequestBuilder.Request;
 import modularity.coderdojoevents.Api.EventBrite.Response.BriteEvent;
 import retrofit.Call;
 import retrofit.Response;
@@ -15,7 +16,7 @@ import retrofit.Response;
 /**
  * Created by Garu on 22/01/2016.
  */
-public class AsyncBriteRequestArea extends AsyncTask<String, Integer, BriteEvent> {
+public class AsyncBriteRequestArea extends AsyncTask<Request, Integer, BriteEvent> {
 
     public static final int ERROR_NULL_RESPONSE = 1;
     private static final int ERROR_IO = 2;
@@ -28,12 +29,12 @@ public class AsyncBriteRequestArea extends AsyncTask<String, Integer, BriteEvent
     }
 
     @Override
-    protected BriteEvent doInBackground(String... params) {
+    protected BriteEvent doInBackground(Request... params) {
         try {
 
             EventBrite eventBrite = new EventBrite();
-            Call<BriteEvent> apiCall = eventBrite.getApi().getEventsByArea(params[0], params[1], params[2], params[3], params[4], params[5], EventBrite.PUBLIC_TOKEN);
-            Response<BriteEvent> response = apiCall.execute();
+            Call<BriteEvent> requestCall = params[0].execute(eventBrite.getApi(), EventBrite.PUBLIC_TOKEN);
+            Response<BriteEvent> response = requestCall.execute();
             this.responseCode = response.code();
             return (response.isSuccess()) ? response.body() : null;
 
