@@ -16,7 +16,7 @@ public class Test {
         Request request = RequestBuilder.build()
                 .search("Coderdojo")
                 .from(42.11231, 11.241324)
-                .within(50).unit(Request.UNIT_KM)
+                .within(50).unit(Request.KM)
                 .expand("venue", "organizer", "ticket_classes")
                 .sortBy("date");
 

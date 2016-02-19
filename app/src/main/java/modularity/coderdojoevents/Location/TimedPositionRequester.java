@@ -2,6 +2,7 @@ package modularity.coderdojoevents.Location;
 
 import android.content.Context;
 import android.location.LocationManager;
+import android.os.Handler;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -13,7 +14,7 @@ public class TimedPositionRequester implements PositionListener {
     private PositionListener listener;
     private PositionRequester gpsRequester;
     private PositionRequester networkRequester;
-    private PositionTimerAsync timer;
+    private boolean done = false;
 
     public TimedPositionRequester(PositionListener listener, int maxFixTime) {
         this.maxFixTime = maxFixTime;
@@ -24,19 +25,27 @@ public class TimedPositionRequester implements PositionListener {
 
         this.gpsRequester = new PositionRequester();
         this.networkRequester = new PositionRequester();
-        this.timer = new PositionTimerAsync(this);
+
 
         this.gpsRequester.requestLocation(this, context, LocationManager.GPS_PROVIDER);
         this.networkRequester.requestLocation(this, context, LocationManager.NETWORK_PROVIDER);
-        this.timer.execute(maxFixTime);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                onPositionFixed(null);
+            }
+        }, maxFixTime);
 
     }
 
     @Override
     public void onPositionFixed(LatLng position) {
-        this.gpsRequester.dispose();
-        this.networkRequester.dispose();
-        this.timer.cancel(true);
-        this.listener.onPositionFixed(position);
+        if (!done) {
+            this.gpsRequester.dispose();
+            this.networkRequester.dispose();
+            this.listener.onPositionFixed(position);
+            done = true;
+        }
     }
 }

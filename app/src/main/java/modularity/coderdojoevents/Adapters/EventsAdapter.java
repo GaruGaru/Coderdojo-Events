@@ -70,6 +70,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
                     .placeholder(R.drawable.ic_dojo_standard)
                     .fit()
                     .centerCrop()
+                    .error(R.drawable.ic_dojo_standard)
                     .transform(new BlurTransformation(context, 24))
                     .into(viewHolder.imageViewIcon);
         } else
@@ -83,12 +84,16 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
 
     }
 
+
     @Override
     public EventsViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View itemView = LayoutInflater.
+        return new EventsViewHolder(
+                LayoutInflater.
                 from(viewGroup.getContext()).
-                inflate(R.layout.card_event_blurred, viewGroup, false);
-        return new EventsViewHolder(itemView);
+                        inflate(R.layout.card_event_blurred,
+                                viewGroup,
+                                false
+                        ));
     }
 
     public static class EventsViewHolder extends RecyclerView.ViewHolder {

@@ -15,19 +15,19 @@ import retrofit.Call;
  */
 public class Request {
 
-    public static final String UNIT_KM = "km";
-    public static final String UNIT_MILES = "mi";
+    public static final String KM = "km";
+    public static final String MI = "mi";
 
-    public static final String SORT_BY_DATE = "date";
-    public static final String SORT_BY_DISTANCE = "distance";
+    public static final String DATE = "date";
+    public static final String DISTANCE = "distance";
 
     private String query;
     private double[] from;
-    private String distanceUnit = UNIT_KM;
+    private String distanceUnit = KM;
     private int distanceWithin;
     private List<String> expand;
     private String city;
-    private String sortBy = SORT_BY_DATE;
+    private String sortBy = DATE;
 
     public Request() {
         this.expand = new ArrayList<>();

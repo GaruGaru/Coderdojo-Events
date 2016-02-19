@@ -58,7 +58,7 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
         Request request = RequestBuilder.build()
                 .search("Coderdojo")
                 .from(dojoSettings.getUserPosition())
-                .within(1000000).unit(Request.UNIT_KM)
+                .within(1000000).unit(Request.KM)
                 .expand("venue", "organizer", "ticket_classes");
         new AsyncBriteRequestArea(this).execute(request);
     }

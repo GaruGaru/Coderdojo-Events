@@ -130,7 +130,7 @@ public class ActivityLocation extends AppCompatActivity implements PositionListe
             if (!GeoUtils.getCityByLatLng(this, currentLatLng).equals("null")) {
                 focusMap(latLng);
                 showDialogConfirm();
-            } else showErrorDialog();
+            } else handleAutoGpsFailture();
         }
     }
 
@@ -161,12 +161,17 @@ public class ActivityLocation extends AppCompatActivity implements PositionListe
         if (autoGpsDialog != null)
             autoGpsDialog.dismiss();
 
+
         if (position != null) {
-            currentLatLng = new LatLng(position.latitude, position.longitude);
-            ((PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment))
-                    .setText(GeoUtils.getCityByLatLng(this, position));
-            focusMap(position);
-            showDialogConfirm();
+            String cityByLatLng = GeoUtils.getCityByLatLng(this, position);
+
+            if (cityByLatLng != null && !cityByLatLng.equals("null")) {
+                currentLatLng = new LatLng(position.latitude, position.longitude);
+                ((PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment))
+                        .setText(cityByLatLng);
+                focusMap(position);
+                showDialogConfirm();
+            } else handleAutoGpsFailture();
         } else {
             if (autoGpsDialog != null) handleAutoGpsFailture();
             else Toast.makeText(this, R.string.message_gps_error, Toast.LENGTH_LONG).show();

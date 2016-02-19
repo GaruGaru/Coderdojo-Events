@@ -95,9 +95,9 @@ public class MainActivity extends AppCompatActivity implements BriteListener, Sw
             Request request = RequestBuilder.build()
                     .search("Coderdojo")
                     .from(settingsManager.getUserPosition())
-                    .within(50).unit(Request.UNIT_KM)
+                    .within(50).unit(Request.KM)
                     .expand("venue", "organizer", "ticket_classes")
-                    .sortBy("date");
+                    .sortBy(Request.DATE);
             new AsyncBriteRequestArea(this).execute(request);
 
         } else onRequestDone(settingsManager.getEvents());
@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements BriteListener, Sw
     private void setEvents(BriteEvent events) {
         this.messageContainerView.setVisibility(View.GONE);
         this.eventView.setVisibility(View.VISIBLE);
+        settingsManager.setEvents(events);
         EventsAdapter adapter = new EventsAdapter(this, (events != null) ? Arrays.asList(events.getEvents()) : new ArrayList<Events>());
         eventView.setAdapter(adapter);
     }
@@ -142,18 +143,18 @@ public class MainActivity extends AppCompatActivity implements BriteListener, Sw
         if (eventList != null && eventList.getEvents() != null && eventList.getEvents().length > 0)
             setEvents(eventList);
         else
-            showErrorMessage(getString(R.string.message_no_events));
+            showErrorLayout(getString(R.string.message_no_events));
         swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void onRequestError(int errorCode) {
         swipeRefreshLayout.setRefreshing(false);
-        showErrorMessage(getString(R.string.message_connection_error));
+        showErrorLayout(getString(R.string.message_connection_error));
     }
 
 
-    private void showErrorMessage(String message) {
+    private void showErrorLayout(String message) {
         this.textViewMessage.setText(message);
         this.messageContainerView.setVisibility(View.VISIBLE);
         this.eventView.setVisibility(View.GONE);
