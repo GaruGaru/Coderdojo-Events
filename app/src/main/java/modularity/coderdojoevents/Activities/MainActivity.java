@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements BriteListener, Sw
 
         setupListLayout();
 
-        this.executeRequest(false);
+        executeRequest(false);
 
         openGpsIfNeeded();
 

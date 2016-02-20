@@ -19,9 +19,7 @@ import retrofit.Response;
 public class AsyncBriteRequestArea extends AsyncTask<Request, Integer, BriteEvent> {
 
     public static final int ERROR_NULL_RESPONSE = 1;
-    private static final int ERROR_IO = 2;
     private List<BriteListener> listeners;
-    private int responseCode;
 
     public AsyncBriteRequestArea(BriteListener... listeners) {
         this.listeners = new ArrayList<>();
@@ -30,16 +28,17 @@ public class AsyncBriteRequestArea extends AsyncTask<Request, Integer, BriteEven
 
     @Override
     protected BriteEvent doInBackground(Request... params) {
+
         try {
 
             EventBrite eventBrite = new EventBrite();
             Call<BriteEvent> requestCall = params[0].execute(eventBrite.getApi(), EventBrite.PUBLIC_TOKEN);
             Response<BriteEvent> response = requestCall.execute();
-            this.responseCode = response.code();
+
             return (response.isSuccess()) ? response.body() : null;
 
         } catch (IOException e) {
-            this.responseCode = ERROR_IO;
+
             return null;
         }
     }

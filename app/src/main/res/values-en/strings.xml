@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Coderdojo Events</string>
+
+    <string name="activity_location_label">User Position</string>
+    <string name="activity_map_complete_title">Map</string>
+    <string name="activity_welcome_title">Welcome</string>
+    <string name="city">City</string>
+    <string name="message_connection_error">Connection Error</string>
+    <string name="message_gps_auto_failed">Error during auto gps fix, insert your position manually</string>
+    <string name="message_gps_error">Error during gps fix, insert your position manually</string>
+    <string name="message_gps_needed">In order to find the coderdojos nearby you the application needs to retrive your position trought the gps</string>
+    <string name="message_gps_wait">Waiting for gps fix</string>
+    <string name="message_invalid_location">Invalid locaition</string>
+    <string name="message_location_decode_error">Error during location decode, select another location or try again</string>
+    <string name="message_location_notfound">Location not found</string>
+    <string name="message_no_events">No events found</string>
+    <string name="message_no_events_found">No events found</string>
+    <string name="message_request_error">Network error</string>
+    <string name="message_waiting_gps">Waiting for gps</string>
+    <string name="string_dismiss">Cancel</string>
+    <string name="string_remember_pos">Remember that you can change your position in any moment using the gps button</string>
+    <string name="string_your_city">Your city is</string>
+    <string name="tab_title_description">Description</string>
+    <string name="tab_title_event">Event</string>
+    <string name="tab_title_map">Map</string>
+    <string name="tab_title_tickets">Tickets</string>
+    <string name="take_tickets">Take your ticket</string>
+    <string name="title_available_activities">Available activities</string>
+    <string name="title_gps_needed">User position</string>
+    <string name="title_user_pos">User position</string>
+    <string name="message_welcome">Welcome to CoderDojo events , the best way to stay updated on CoderDojo events near you! \nPress the symbol below to continue</string>
+</resources>

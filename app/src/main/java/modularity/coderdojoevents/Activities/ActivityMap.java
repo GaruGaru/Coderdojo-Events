@@ -130,9 +130,7 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
     public void onRequestDone(BriteEvent eventList) {
         events = eventList.getEvents();
         for (Events e : events) {
-            LatLng location = e.getLocation();
-            String name = e.getName().getText();
-            addMarker(location, name, R.drawable.ic_dojo_pin);
+            addMarker(e.getLocation(), e.getName().getText(), R.drawable.ic_dojo_pin);
         }
 
     }

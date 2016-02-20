@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Coderdojo Events</string>
-    <string name="action_settings">Settings</string>
-    <string name="activity_location_label">User home</string>
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="activity_location_label">Posizione Utente</string>
     <string name="message_gps_error">Errore fix gps, selezionare la città manualmente</string>
-    <string name="message_invalid_location">Invalid location!</string>
-    <string name="message_location_decode_error">Error during location decode</string>
+    <string name="message_invalid_location">Posizione non valida</string>
+    <string name="message_location_decode_error">Errore durante la decodifica posizione, selezionare una nuova posizione o provare nuovamente tra poco</string>
     <string name="message_location_notfound">Posizione non trovata</string>
     <string name="message_waiting_gps">Attesa gps</string>
     <string name="tab_title_event">Evento</string>
@@ -16,7 +16,7 @@
 
     <string name="message_gps_wait">Attesa fix GPS</string>
     <string name="message_gps_auto_failed">Impossibile ottenere la posizione utente dal sensore Gps, inserire la posizione manualmente</string>
-    <string name="string_your_city">"La tua città è "</string>
+    <string name="string_your_city">La tua città è </string>
     <string name="string_remember_pos">\nRicorda che puoi cambiare la tua posizione in ogni momento tramite l\'apposito bottone!</string>
     <string name="title_user_pos">Posizione utente</string>
     <string name="string_dismiss">Annulla</string>
@@ -26,10 +26,10 @@
     <string name="take_tickets">Prenota il tuo posto</string>
     <string name="message_no_events_found">Nessun evento trovato</string>
     <string name="message_request_error">Errore di rete</string>
-    <string name="message_connection_error">Connection error</string>
+    <string name="message_connection_error">Errore di connessione</string>
     <string name="message_no_events">Nessun evento trovato</string>
     <string name="activity_welcome_title">Benvenuto</string>
-    <string name="activity_map_complete_title">Coderdojo Events</string>
+    <string name="activity_map_complete_title">Mappa Completa</string>
 
 
 </resources>
