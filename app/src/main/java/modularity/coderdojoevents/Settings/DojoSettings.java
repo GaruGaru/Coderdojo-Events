@@ -35,8 +35,7 @@ public class DojoSettings extends SettingsManager {
     }
 
     public void setEvents(BriteEvent events) {
-        if (events != null)
-            getEditor().putString(KEY_EVENTS, Json.to(events)).commit();
+        getEditor().putString(KEY_EVENTS, Json.to(events)).commit();
     }
 
     public LatLng getUserPosition() {
