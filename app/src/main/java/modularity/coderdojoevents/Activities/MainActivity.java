@@ -19,8 +19,7 @@ import butterknife.OnClick;
 import modularity.coderdojoevents.Adapters.EventsAdapter;
 import modularity.coderdojoevents.Api.EventBrite.Android.AsyncBriteRequestArea;
 import modularity.coderdojoevents.Api.EventBrite.Android.BriteListener;
-import modularity.coderdojoevents.Api.EventBrite.RequestBuilder.Request;
-import modularity.coderdojoevents.Api.EventBrite.RequestBuilder.RequestBuilder;
+import modularity.coderdojoevents.Api.EventBrite.RequestBuilder.DojoRequestBuilder;
 import modularity.coderdojoevents.Api.EventBrite.Response.BriteEvent;
 import modularity.coderdojoevents.Api.EventBrite.Response.Events;
 import modularity.coderdojoevents.Custom.SpacesItemDecoration;
@@ -57,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements BriteListener, Sw
 
         swipeRefreshLayout.setOnRefreshListener(this);
 
-
         setupListLayout();
 
         executeRequest(false);
@@ -90,16 +88,9 @@ public class MainActivity extends AppCompatActivity implements BriteListener, Sw
 
     protected void executeRequest(boolean forceUpdate) {
         swipeRefreshLayout.setRefreshing(true);
-        setEvents(null);
+        showEvents(null);
         if (settingsManager.getUserPosition() != null && (forceUpdate || settingsManager.getEvents() == null)) {
-            Request request = RequestBuilder.build()
-                    .search("Coderdojo")
-                    .from(settingsManager.getUserPosition())
-                    .within(50).unit(Request.KM)
-                    .expand("venue", "organizer", "ticket_classes")
-                    .sortBy(Request.DATE);
-            new AsyncBriteRequestArea(this).execute(request);
-
+            new AsyncBriteRequestArea(this).execute(DojoRequestBuilder.build(settingsManager));
         } else onRequestDone(settingsManager.getEvents());
     }
 
@@ -130,18 +121,21 @@ public class MainActivity extends AppCompatActivity implements BriteListener, Sw
         eventView.setLayoutManager(llm);
     }
 
-    private void setEvents(BriteEvent events) {
+    private void showEvents(BriteEvent events) {
+
         this.messageContainerView.setVisibility(View.GONE);
         this.eventView.setVisibility(View.VISIBLE);
+
         settingsManager.setEvents(events);
         EventsAdapter adapter = new EventsAdapter(this, (events != null) ? Arrays.asList(events.getEvents()) : new ArrayList<Events>());
         eventView.setAdapter(adapter);
+
     }
 
     @Override
     public void onRequestDone(BriteEvent eventList) {
         if (eventList != null && eventList.getEvents() != null && eventList.getEvents().length > 0)
-            setEvents(eventList);
+            showEvents(eventList);
         else
             showErrorLayout(getString(R.string.message_no_events));
         swipeRefreshLayout.setRefreshing(false);

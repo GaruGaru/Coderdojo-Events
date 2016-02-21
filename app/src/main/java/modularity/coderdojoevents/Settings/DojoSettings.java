@@ -11,13 +11,23 @@ import modularity.coderdojoevents.Utils.Json;
  * Created by Garu on 26/01/2016.
  */
 public class DojoSettings extends SettingsManager {
+
     private static final String KEY_EVENTS = "EVENTS";
     private static final String KEY_USER_POS = "USER_POS";
-
+    private static final String EVENTS_DISTANCE = "EVENTS_DISTANCE";
 
     public DojoSettings(Context context) {
         super(context);
     }
+
+    public int getEventDistance() {
+        return getPreferences().getInt(EVENTS_DISTANCE, 50);
+    }
+
+    public void setEventDistance(int value) {
+        getEditor().putInt(EVENTS_DISTANCE, value).commit();
+    }
+
 
     public BriteEvent getEvents() {
         String string = getPreferences().getString(KEY_EVENTS, "");

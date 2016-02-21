@@ -51,7 +51,7 @@ public class BlurTransformation implements Transformation {
 
         // Copy the output to the blurred bitmap
         output.copyTo(blurredBitmap);
-
+//
         bitmap.recycle(); // Todo Check if needed <--
 
         return blurredBitmap;
