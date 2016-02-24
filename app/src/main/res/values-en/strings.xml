@@ -20,7 +20,7 @@
     <string name="message_waiting_gps">Waiting for gps</string>
     <string name="string_dismiss">Cancel</string>
     <string name="string_remember_pos">Remember that you can change your position in any moment using the gps button</string>
-    <string name="string_your_city">Your city is</string>
+    <string name="string_your_city">Your city is </string>
     <string name="tab_title_description">Description</string>
     <string name="tab_title_event">Event</string>
     <string name="tab_title_map">Map</string>
@@ -30,4 +30,5 @@
     <string name="title_gps_needed">User position</string>
     <string name="title_user_pos">User position</string>
     <string name="message_welcome">Welcome to CoderDojo events , the best way to stay updated on CoderDojo events near you! \nPress the symbol below to continue</string>
+    <string name="take_ticket">Prenota</string>
 </resources>

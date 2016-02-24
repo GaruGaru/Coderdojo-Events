@@ -17,7 +17,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import modularity.coderdojoevents.Adapters.EventsAdapter;
-import modularity.coderdojoevents.Api.EventBrite.Android.AsyncBriteRequestArea;
+import modularity.coderdojoevents.Api.EventBrite.Android.AsyncBriteRequest;
 import modularity.coderdojoevents.Api.EventBrite.Android.BriteListener;
 import modularity.coderdojoevents.Api.EventBrite.RequestBuilder.DojoRequestBuilder;
 import modularity.coderdojoevents.Api.EventBrite.Response.BriteEvent;
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements BriteListener, Sw
         swipeRefreshLayout.setRefreshing(true);
         showEvents(null);
         if (settingsManager.getUserPosition() != null && (forceUpdate || settingsManager.getEvents() == null)) {
-            new AsyncBriteRequestArea(this).execute(DojoRequestBuilder.build(settingsManager));
+            new AsyncBriteRequest(this).execute(DojoRequestBuilder.build(settingsManager));
         } else onRequestDone(settingsManager.getEvents());
     }
 
@@ -117,16 +117,19 @@ public class MainActivity extends AppCompatActivity implements BriteListener, Sw
         eventView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
+
+
         eventView.addItemDecoration(new SpacesItemDecoration(this, 0, 0));
         eventView.setLayoutManager(llm);
     }
 
     private void showEvents(BriteEvent events) {
 
+        if (events != null) settingsManager.setEvents(events);
+
         this.messageContainerView.setVisibility(View.GONE);
         this.eventView.setVisibility(View.VISIBLE);
 
-        settingsManager.setEvents(events);
         EventsAdapter adapter = new EventsAdapter(this, (events != null) ? Arrays.asList(events.getEvents()) : new ArrayList<Events>());
         eventView.setAdapter(adapter);
 
@@ -138,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements BriteListener, Sw
             showEvents(eventList);
         else
             showErrorLayout(getString(R.string.message_no_events));
+
         swipeRefreshLayout.setRefreshing(false);
     }
 

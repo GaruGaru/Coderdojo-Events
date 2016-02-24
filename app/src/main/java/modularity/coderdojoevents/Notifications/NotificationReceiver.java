@@ -8,7 +8,7 @@ import android.content.Intent;
 
 import java.util.List;
 
-import modularity.coderdojoevents.Api.EventBrite.Android.AsyncBriteRequestArea;
+import modularity.coderdojoevents.Api.EventBrite.Android.AsyncBriteRequest;
 import modularity.coderdojoevents.Api.EventBrite.Android.BriteListener;
 import modularity.coderdojoevents.Api.EventBrite.RequestBuilder.DojoRequestBuilder;
 import modularity.coderdojoevents.Api.EventBrite.RequestBuilder.Request;
@@ -33,7 +33,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         final DojoSettings settings = new DojoSettings(context);
         Request request = DojoRequestBuilder.build(settings);
 
-        new AsyncBriteRequestArea(new BriteListener() {
+        new AsyncBriteRequest(new BriteListener() {
             @Override
             public void onRequestDone(BriteEvent eventList) {
                 requestOk(context, settings, eventList);
@@ -56,7 +56,7 @@ public class NotificationReceiver extends BroadcastReceiver {
             List<Events> differences = NotificationHelper.getDifferences(oldEvents, newEvents);
 
             for (Events e : differences)
-                NotificationHelper.showEventNotification(context, e);
+                EventNotification.notify(context, e);
 
         }
 

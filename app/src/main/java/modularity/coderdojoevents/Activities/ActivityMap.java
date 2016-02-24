@@ -16,7 +16,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import butterknife.ButterKnife;
-import modularity.coderdojoevents.Api.EventBrite.Android.AsyncBriteRequestArea;
+import modularity.coderdojoevents.Api.EventBrite.Android.AsyncBriteRequest;
 import modularity.coderdojoevents.Api.EventBrite.Android.BriteListener;
 import modularity.coderdojoevents.Api.EventBrite.RequestBuilder.Request;
 import modularity.coderdojoevents.Api.EventBrite.RequestBuilder.RequestBuilder;
@@ -60,7 +60,7 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
                 .from(dojoSettings.getUserPosition())
                 .within(1000000).unit(Request.KM)
                 .expand("venue", "organizer", "ticket_classes");
-        new AsyncBriteRequestArea(this).execute(request);
+        new AsyncBriteRequest(this).execute(request);
     }
 
     private void openEventInfo(Events event) {

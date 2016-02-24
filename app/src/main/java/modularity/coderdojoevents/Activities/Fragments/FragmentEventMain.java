@@ -1,6 +1,7 @@
 package modularity.coderdojoevents.Activities.Fragments;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Arrays;
 
+import butterknife.OnClick;
 import modularity.coderdojoevents.Adapters.FormatHelper;
 import modularity.coderdojoevents.Adapters.TicketAdapter;
 import modularity.coderdojoevents.Api.EventBrite.Response.Events;
@@ -40,10 +41,9 @@ public class FragmentEventMain extends Fragment implements OnMapReadyCallback, G
     protected TextView textViewTitle;
     protected TextView textViewEventVenue;
     protected TextView textViewEventDate;
-    private int position;
     private GoogleMap map;
     private SupportMapFragment mapView;
-    private ScrollView scrollView;
+
     private View ticketContainerView;
 
     private RecyclerView ticketList;
@@ -65,7 +65,7 @@ public class FragmentEventMain extends Fragment implements OnMapReadyCallback, G
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        position = getArguments().getInt(ARG_POSITION);
+        int position = getArguments().getInt(ARG_POSITION);
     }
 
     @Override
@@ -77,21 +77,19 @@ public class FragmentEventMain extends Fragment implements OnMapReadyCallback, G
     }
 
 
+
     private void initLayout(View v) {
         this.textViewEventDate = (TextView) v.findViewById(R.id.textViewEventDate);
         this.textViewEventVenue = (TextView) v.findViewById(R.id.textViewEventVenue);
         this.textViewTitle = (TextView) v.findViewById(R.id.textViewEventTitle);
-        this.scrollView = (ScrollView) v.findViewById(R.id.scrollView);
         this.ticketList = (RecyclerView) v.findViewById(R.id.ticketList);
         this.ticketContainerView = v.findViewById(R.id.cardTicketContainer);
 
-        setupLayout(v, this.event);
-
-        scrollView.scrollTo(0, 0);
+        setupLayout(this.event);
 
     }
 
-    public void setupLayout(View v, Events event) {
+    public void setupLayout(Events event) {
 
         setupMapView();
 
@@ -153,8 +151,14 @@ public class FragmentEventMain extends Fragment implements OnMapReadyCallback, G
 
     }
 
-    @Override
+    @OnClick(R.id.buttonTicket)
+    protected void openTicketUrl() {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(event.getUrl()));
+        getContext().startActivity(i);
+    }
 
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (map == null) {

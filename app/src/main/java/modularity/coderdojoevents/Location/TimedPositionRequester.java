@@ -26,7 +26,6 @@ public class TimedPositionRequester implements PositionListener {
         this.gpsRequester = new PositionRequester();
         this.networkRequester = new PositionRequester();
 
-
         this.gpsRequester.requestLocation(this, context, LocationManager.GPS_PROVIDER);
         this.networkRequester.requestLocation(this, context, LocationManager.NETWORK_PROVIDER);
 

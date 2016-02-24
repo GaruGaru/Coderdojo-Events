@@ -3,7 +3,6 @@ package modularity.coderdojoevents.Utils;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -16,10 +15,6 @@ import java.util.List;
  */
 public class GeoUtils {
 
-    public static final float CAR_SPEED = 65.0F;
-    public static final float WALK_SPEED = 5.0F;
-
-    // TODO Refactor everything
 
     public static LatLng getLatLng(Context context, String location) {
         if (Geocoder.isPresent()) {
@@ -58,13 +53,4 @@ public class GeoUtils {
         }
     }
 
-    public static float distance(double slat, double slon, double dlat, double dlon) {
-        float[] result = new float[2];
-        Location.distanceBetween(slat, slon, dlat, dlon, result);
-        return result[0];
-    }
-
-    public static float getTravelTime(float distanceKm, float speedKmH) {
-        return ((distanceKm * 1000) / (speedKmH * 3.6F));
-    }
 }

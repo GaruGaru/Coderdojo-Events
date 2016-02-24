@@ -28,7 +28,6 @@ public class DojoSettings extends SettingsManager {
         getEditor().putInt(EVENTS_DISTANCE, value).commit();
     }
 
-
     public BriteEvent getEvents() {
         String string = getPreferences().getString(KEY_EVENTS, "");
         return (string.isEmpty()) ? null : Json.from(string, BriteEvent.class);

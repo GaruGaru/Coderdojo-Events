@@ -22,8 +22,9 @@ public class ActivityEventTabbed extends AppCompatActivity {
 
     @Bind(R.id.pager)
     protected ViewPager pager;
-    private PagerSlidingTabStrip tabs;
-    private EventsTabAdapter adapter;
+
+    @Bind(R.id.tabs)
+    protected PagerSlidingTabStrip tabs;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +37,8 @@ public class ActivityEventTabbed extends AppCompatActivity {
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
-        pager = (ViewPager) findViewById(R.id.pager);
         tabs.setShouldExpand(true);
-        adapter = new EventsTabAdapter(this, getSupportFragmentManager(), (Events) getIntent().getSerializableExtra("event"));
+        EventsTabAdapter adapter = new EventsTabAdapter(this, getSupportFragmentManager(), (Events) getIntent().getSerializableExtra("event"));
         pager.setAdapter(adapter);
         tabs.setViewPager(pager);
         this.setupTabs();

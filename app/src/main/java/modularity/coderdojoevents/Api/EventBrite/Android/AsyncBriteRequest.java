@@ -16,12 +16,12 @@ import retrofit.Response;
 /**
  * Created by Garu on 22/01/2016.
  */
-public class AsyncBriteRequestArea extends AsyncTask<Request, Integer, BriteEvent> {
+public class AsyncBriteRequest extends AsyncTask<Request, Integer, BriteEvent> {
 
     public static final int ERROR_NULL_RESPONSE = 1;
     private List<BriteListener> listeners;
 
-    public AsyncBriteRequestArea(BriteListener... listeners) {
+    public AsyncBriteRequest(BriteListener... listeners) {
         this.listeners = new ArrayList<>();
         Collections.addAll(this.listeners, listeners);
     }
